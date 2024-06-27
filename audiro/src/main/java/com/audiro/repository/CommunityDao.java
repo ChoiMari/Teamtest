@@ -1,0 +1,91 @@
+package com.audiro.repository;
+
+import java.util.List;
+
+import com.audiro.dto.CommunityPopularReviewDto;
+import com.audiro.dto.CommunityPostSearchDto;
+
+//community-mapper.xml에서 SQL을 실행하는 메서드 작성하기.
+public interface CommunityDao {
+	
+	//인기(찜 많은 순위로) 여행후기 10개 가져옴. postId랑 찜개수 2개 select
+	//여기서 뽑은 post_id로 title은 따로 뽑아가져오기. 근데 해당 포스트 삭제되었을경우 해당게시물삭제로 화면 보이게 예외처리하기
+	public List<CommunityPopularReviewDto> selectReviewPopular10();
+	
+	//찜 추가
+	public int insertFavoriteReview(Post post);
+	
+	//찜 삭제(취소)
+	public int deleteCancelFavoriteReview(Post post);
+	
+	//전체 게시판 목록 select 최신순으로 가져옴
+	public List<Post> selectEntireOrderByCreateTimeDesc();
+	
+	//전체 게시판 목록 select 인기순으로 가져옴(good 많은 순)
+	public List<Post> selectEntireOrderByGoodDesc();
+	
+	//여행메이트 게시판 목록 select 최신순으로 가져옴
+	public List<Post> selectMateOrderByCreateTimeDesc();
+	
+	//여행메이트 게시판 목록 select 인기순으로 가져옴
+	public List<Post> selectMateOrderByGoodDesc();
+	
+	//자유 게시판 목록 select 최신순으로 가져옴
+	public List<Post> selectFreeOrderByCreateTimeDesc();
+	
+	//자유 게시판 목록 select 인기순으로 가져옴
+	public List<Post> selectFreeOrderByGoodDesc();
+	
+	//(자유+여행메이트 글쓰면) post테이블에 insert하는 문장
+	public int insertFreeAndMate(Post post);
+	
+	//사용자가 good버튼 누르면 good 증가
+	public int updatePostGood(int postId);
+
+	//사용자가 good버튼 한번 또 누르면 good 삭제(누른 good 취소)
+	public int updateCancelPostGood(int postId);
+	
+	//자유+여행메이트 상세 페이지 select
+	public Post selectDetailsFreeAndMate(int postId);
+	
+	//자유+여행메이트 게시판에서 수정(update)하는 문장
+	public int updateFreeAndMate(Post post);
+	
+	//자유+여행메이트 게시판에서 삭제(delete)하는 문장
+	public int deletePostById(int postId);
+	
+	//자유 or 여행메이트 게시판 상세보기 select
+	public Post selectDetailsFreeAndMate(Post post);
+	
+	//임시 저장 등록 insert
+	public int insertDraftPost(DraftPost draftPost);
+	
+	//(자유+여행메이트) 임시저장된 목록 불러오기 select
+	public List<DraftPost> selectFreeAndMateDraftPost(int usersId);
+	
+	//임시저장 된 게시글 1개 불러오기 select
+	public DraftPost selectDraftPost(int draftPostId);
+	
+	
+	//임시저장 된 글 삭제하기
+	public int deleteDraftPostById(int draftPostId);
+	
+	//임시저장 된 글 전체 삭제하기
+	public int deleteAllDraftPostsByUserId(int usersId);
+	
+	//커뮤니티 검색 창(자유+여행메이트) 최신순
+	// post 테이블에서 제목/내용/제목+내용/닉네임으로 검색하기 기능 
+	public List<Post> searchCommunityOrderByIdDesc(CommunityPostSearchDto dto);
+	
+	//TODO : 랭킹 뽑기
+	
+	 //커뮤니티 메인 화면에 인기여행지 top10개(찜많은순으로 10개 가져옴) select.
+	//public List<CommunityFavoriteDestinationDto> selectPopular10();
+	
+	//인기 여행지 top10에서 찜 누르면 찜 여행지에 insert
+	//public int insertFavoriteDestinations(FavoriteDestination favoriteDestination);
+	
+	//찜 취소 
+	//public int deleteCancelFavoriteDestinations(FavoriteDestination favoriteDestination);
+
+}
