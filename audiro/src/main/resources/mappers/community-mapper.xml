@@ -76,7 +76,7 @@
     
     
     <!-- 통합(전체) 게시판 목록 select 최신순으로 가져옴  -->
-    <select id="selectEntireOrderByCreateTimeDesc" resultType="Post">
+    <select id="selectEntireOrderByCreatedTimeDesc" resultType="com.audiro.repository.Post">
         select p.*, u.nickname 
         from post p, users u 
         where p.users_id = u.users_id
@@ -97,7 +97,7 @@
     
     
     <!-- 여행메이트 게시판 목록 select 최신순으로 가져옴 -->
-    <select id="selectMateOrderByCreateTimeDesc" resultType="Post">
+    <select id="selectMateOrderByCreatedTimeDesc" resultType="Post">
         select p.*, u.nickname 
         from post p, users u 
         where p.users_id = u.users_id
@@ -118,7 +118,7 @@
    
     
     <!-- 자유 게시판 목록 select 최신순으로 가져옴 -->
-    <select id="selectFreeOrderByCreateTimeDesc" resultType="Post">
+    <select id="selectFreeOrderByCreatedTimeDesc" resultType="Post">
         select p.*, u.nickname 
         from post p, users u 
         where p.users_id = u.users_id
@@ -190,10 +190,10 @@
     
 
     
-    <!-- 자유 or 여행메이트 게시판 상세보기 select-->
+    <!-- 자유 or 여행메이트 게시판 상세보기 select
     <select id="selectDetailsFreeAndMate" resultType="Post">
         select * from post where post_id = #{postId} and post_type_id = #{postTypeId}
-    </select>
+    </select>-->
     
     
     <!-- 임시 저장 등록 insert -->

@@ -15,7 +15,7 @@
 </head>
 <body>
 	<div class="container-fluid">
-		<%@ include file="./fragments/header.jspf" %>
+		  <%@ include file="./fragments/header.jspf" %>
 	</div>
 
 

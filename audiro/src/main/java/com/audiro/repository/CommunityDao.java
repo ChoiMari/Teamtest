@@ -18,20 +18,20 @@ public interface CommunityDao {
 	//찜 삭제(취소)
 	public int deleteCancelFavoriteReview(Post post);
 	
-	//전체 게시판 목록 select 최신순으로 가져옴
-	public List<Post> selectEntireOrderByCreateTimeDesc();
+	//전체 게시판 목록 select 최신순으로 가져옴 
+	public List<Post> selectEntireOrderByCreatedTimeDesc();
 	
 	//전체 게시판 목록 select 인기순으로 가져옴(good 많은 순)
 	public List<Post> selectEntireOrderByGoodDesc();
 	
 	//여행메이트 게시판 목록 select 최신순으로 가져옴
-	public List<Post> selectMateOrderByCreateTimeDesc();
+	public List<Post> selectMateOrderByCreatedTimeDesc();
 	
 	//여행메이트 게시판 목록 select 인기순으로 가져옴
 	public List<Post> selectMateOrderByGoodDesc();
 	
 	//자유 게시판 목록 select 최신순으로 가져옴
-	public List<Post> selectFreeOrderByCreateTimeDesc();
+	public List<Post> selectFreeOrderByCreatedTimeDesc();
 	
 	//자유 게시판 목록 select 인기순으로 가져옴
 	public List<Post> selectFreeOrderByGoodDesc();
@@ -55,7 +55,7 @@ public interface CommunityDao {
 	public int deletePostById(int postId);
 	
 	//자유 or 여행메이트 게시판 상세보기 select
-	public Post selectDetailsFreeAndMate(Post post);
+	//public Post selectDetailsFreeAndMate(Post post);
 	
 	//임시 저장 등록 insert
 	public int insertDraftPost(DraftPost draftPost);
