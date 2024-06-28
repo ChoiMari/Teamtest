@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.audiro.dto.CommunityPopularReviewDto;
 import com.audiro.dto.CommunityPostSearchDto;
+import com.audiro.dto.CommunityRankingDto;
 
 //community-mapper.xml에서 SQL을 실행하는 메서드 작성하기.
 public interface CommunityDao {
@@ -78,6 +79,8 @@ public interface CommunityDao {
 	public List<Post> searchCommunityOrderByIdDesc(CommunityPostSearchDto dto);
 	
 	//TODO : 랭킹 뽑기
+	//좋아요 많이 받은 유저 top3
+	public List<CommunityRankingDto> selectLikeUserTop3();
 	
 	 //커뮤니티 메인 화면에 인기여행지 top10개(찜많은순으로 10개 가져옴) select.
 	//public List<CommunityFavoriteDestinationDto> selectPopular10();

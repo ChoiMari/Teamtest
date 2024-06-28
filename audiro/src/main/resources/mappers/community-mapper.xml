@@ -316,6 +316,29 @@
         <!-- 결과를 게시물 post 테이블의 good 기준으로 내림차순(큰 숫자가 먼저 오는) 정렬 -->
         ORDER BY p.good DESC
     </select>
-    
-    
+
+    <!-- 랭킹 -->
+
+    <!-- 사용자 좋아요 TOP 3 순위 매기는 쿼리 -->
+    <select id="selectLikeUserTop3" resultType="com.audiro.dto.CommunityRankingDto">
+            SELECT
+                t.interested_user_id,
+                t.count,
+                t.rank,
+                u.nickname
+            FROM (
+                SELECT
+                    interested_user_id,
+                    COUNT(*) AS count,
+                    RANK() OVER (ORDER BY COUNT(*) DESC) AS rank
+                FROM
+                    favorite_users
+                GROUP BY
+                    interested_user_id
+            ) t
+            JOIN users u ON t.interested_user_id = u.users_id
+            WHERE t.rank &lt;= 3
+            FETCH FIRST 3 ROWS ONLY
+    </select>
+     
 </mapper>

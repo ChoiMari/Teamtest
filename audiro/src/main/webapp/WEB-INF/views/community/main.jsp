@@ -19,7 +19,9 @@
 
 </head>
 
-<body>
+<body> 
+    <c:url var="maintest" value="/community/maintest"></c:url>
+    <a href="${maintest}">test</a>
     <div class="container-fluid" style="width: 90%;">
         <%-- <%@ include file="../fragments/header.jspf"%>
          ..  상위폴더로 올라가서 찾음 --%>

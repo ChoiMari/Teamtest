@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 import com.audiro.dto.CommunityPostListDto;
+import com.audiro.dto.CommunityRankingDto;
 import com.audiro.repository.CommunityDao;
 import com.audiro.repository.Post;
 
@@ -33,7 +34,7 @@ public class CommunityService {
 	public List<CommunityPostListDto> readEntirePostGoodDesc(){
 		log.debug("readEntirePostGood()");
 		List<Post> list = communityDao.selectEntireOrderByGoodDesc();
-		
+		log.debug(list.toString());
 		return list.stream()
 				.map(CommunityPostListDto::fromEntity)
 				.toList();
@@ -43,7 +44,7 @@ public class CommunityService {
 	public List<CommunityPostListDto> readMatePostCreateTimeDesc(){
 		log.debug("readMatePostCreateTimeDesc()");
 		List<Post> list = communityDao.selectMateOrderByCreatedTimeDesc();
-		
+		log.debug(list.toString());
 		return list.stream()
 				.map(CommunityPostListDto::fromEntity)
 				.toList();		
@@ -53,7 +54,7 @@ public class CommunityService {
 	public List<CommunityPostListDto> readMatePostGoodDesc(){
 		log.debug("readMatePostGoodDesc()");
 		List<Post> list = communityDao.selectMateOrderByGoodDesc();
-		
+		log.debug(list.toString());
 		return list.stream()
 				.map(CommunityPostListDto::fromEntity)
 				.toList();		
@@ -63,7 +64,7 @@ public class CommunityService {
 	public List<CommunityPostListDto> readFreePostCreateTimeDesc(){
 		log.debug("readFreePostCreateTimeDesc()");
 		List<Post> list = communityDao.selectFreeOrderByCreatedTimeDesc();
-		
+		log.debug(list.toString());
 		return list.stream()
 				.map(CommunityPostListDto::fromEntity)
 				.toList();		
@@ -73,12 +74,21 @@ public class CommunityService {
 	public List<CommunityPostListDto> readFreePostGoodDesc(){
 		log.debug("readFreePostCreateTimeDesc()");
 		List<Post> list = communityDao.selectFreeOrderByGoodDesc();
-		
+		log.debug(list.toString());
 		return list.stream()
 				.map(CommunityPostListDto::fromEntity)
 				.toList();		
 	}
 	//-----게시판 : 전체/여행메이트/자유 게시판 목록 불러오기 끝 ------
+	
+	//랭킹
+	public List<CommunityRankingDto> readRankingLikeUserTop3() {
+		log.debug("readRankingLikeUserTop3()");
+		List<CommunityRankingDto> list = communityDao.selectLikeUserTop3();
+		log.debug(list.toString());
+		return list;
+		
+	}
 	
 
 }
