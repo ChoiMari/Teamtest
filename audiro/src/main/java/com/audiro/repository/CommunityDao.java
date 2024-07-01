@@ -2,6 +2,8 @@ package com.audiro.repository;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
+
 import com.audiro.dto.CommunityPopularReviewDto;
 import com.audiro.dto.CommunityPostSearchDto;
 import com.audiro.dto.CommunityRankingDto;
@@ -74,11 +76,13 @@ public interface CommunityDao {
 	//임시저장 된 글 전체 삭제하기
 	public int deleteAllDraftPostsByUserId(int usersId);
 	
-	//커뮤니티 검색 창(자유+여행메이트) 최신순
+	//커뮤니티 검색 창 전체(자유+여행메이트) 최신순
 	// post 테이블에서 제목/내용/제목+내용/닉네임으로 검색하기 기능 
-	public List<Post> searchCommunityOrderByIdDesc(CommunityPostSearchDto dto);
+	public List<Post> searchKeywordOrderById(CommunityPostSearchDto dto);
+	//검색 (공백제거해서 검색) 이전것보다 업그레이드
+	public List<Post> searchKeywordOrderById2(CommunityPostSearchDto dto);
 	
-	//TODO : 랭킹 뽑기
+	//랭킹 뽑기
 	//좋아요 많이 받은 유저 top3
 	public List<CommunityRankingDto> selectLikeUserTop3();
 	
@@ -90,5 +94,14 @@ public interface CommunityDao {
 	
 	//찜 취소 
 	//public int deleteCancelFavoriteDestinations(FavoriteDestination favoriteDestination);
+	
+	
+	//-----------------페이징 처리해서 select------------------------------
+	// 전체(여행메이트+자유)post list 가져오기
+    // 총 게시물 수를 가져오는 메서드
+    int countPosts();
+
+    // 페이징된 데이터를 가져오는 메서드
+    List<Post> selectPagingEntireOrderByIdDesc(@Param("offset") int offset, @Param("limit") int limit);
 
 }

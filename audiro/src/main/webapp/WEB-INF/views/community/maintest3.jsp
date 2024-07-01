@@ -50,25 +50,32 @@
                 <div style="background-color:white;">
                     <div class="card-header text-center">
                         <!-- 검색에 쓸 폼 생성 -->
-                        <c:url var="postSearchPage" value="/post/search" />
-                        <form method="get" action="${postSearchPage}">
+                        <c:url var="SearchPage" value="/community/search" />
+                        <form method="get" action="${SearchPage}">
                             <div class="row">
                                 <!-- 부트스트랩은 기본적으로 화면을 세로로 12개로 나눔 -->
                                 <!-- 12개 컬럼을 3:5:4 비율로 사용 -->
                                 <div class="col-2">
-                                    <select class="form-control" name="category">
+                                    <select class="form-control" name="category1">
+                                        <option value="mf">전체</option>
+                                        <option value="m">여행메이트</option>
+                                        <option value="f">자유게시판</option>
+                                    </select>
+                                </div>
+                                <div class="col-2">
+                                    <select class="form-control" name="category2">
                                         <option value="t">제목</option>
                                         <option value="c">내용</option>
                                         <option value="tc">제목+내용</option>
                                         <!-- and 조건이 아닌 or 조건으로 검색 -->
-                                        <option value="a">작성자</option>
+                                        <option value="a">닉네임</option>
                                     </select>
                                 </div>
                                 <div class="col-8">
                                     <input type="text" class="form-control" name="keyword" placeholder="검색어 입력" required />
                                 </div>
                                 <div class="col-2">
-                                    <input type="submit" class="form-control btn btn-outline-secondary" value="검색" />
+                                    <input id="searchSubmit" type="submit" class="form-control btn btn-outline-secondary" value="검색" />
                                 </div>
                             </div>
                         </form>
@@ -107,6 +114,7 @@
                             <div class="col-3 ms-3" style="flex: 0 0 20%;">
                                 <div class="nav flex-column nav-pills me-3" id="v-pills-tab" role="tablist" aria-orientation="vertical">
                                     <!-- 각 버튼은 tab-pane의 id와 연결 -->
+                                    <button class="nav-link" id="v-pills-search-tab" data-bs-toggle="pill" data-bs-target="#v-pills-search" type="button" role="tab" aria-controls="v-pills-search" aria-selected="false">검색</button>
                                     <button class="nav-link active" id="v-pills-home-tab" data-bs-toggle="pill" data-bs-target="#v-pills-home" type="button" role="tab" aria-controls="v-pills-home" aria-selected="true">전체</button>
                                     <button class="nav-link" id="v-pills-profile-tab" data-bs-toggle="pill" data-bs-target="#v-pills-profile" type="button" role="tab" aria-controls="v-pills-profile" aria-selected="false">여행메이트 찾기</button>
                                     <button class="nav-link" id="v-pills-contact-tab" data-bs-toggle="pill" data-bs-target="#v-pills-contact" type="button" role="tab" aria-controls="v-pills-contact" aria-selected="false">자유게시판</button>
@@ -116,6 +124,50 @@
                             <!-- 탭 콘텐츠 -->
                             <div class="col-9" style="flex: 0 0 78%;">
                                 <div class="tab-content" id="v-pills-tabContent">
+                                    <!-- 검색 콘텐츠 시작 -->
+                                    <div class="tab-pane fade" id="v-pills-search" role="tabpanel" aria-labelledby="v-pills-search-tab">
+                                        <h3>검색 결과</h3>
+                                        <!-- 테이블 시작 -->
+                                        <div style="overflow: hidden;">
+                                            <div style="float: left; width: 100%;">
+                                                <div class="card-body">
+                                                    <table class="table table-striped table-hover">
+                                                        <thead>
+                                                            <tr>
+                                                                <th>#</th>
+                                                                <th>Title</th>
+                                                                <th>Nickname</th>
+                                                                <th>Created Time</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <!-- 테이블 바디 -->
+                                                            <c:forEach items="${searchOrderByIdDescList}" var="si">
+                                                                <!-- Post 컨트롤러에서 애트리뷰트한 이름 "allListNew" -->
+                                                                <!-- 쓸 때는 var 값으로 .해서 사용 -->
+                                                                <tr>
+                                                                    <td>${si.postId}</td>
+                                                                    <!-- 객체에서 getPostId 호출하는 것 -->
+                                                                    <!-- TODO: 제목 클릭하면 그 글의 상세페이지로 이동 -->
+                                                                    <td>
+                                                                        <c:url var="communityDetailsPage" value="/community/details">
+                                                                            <c:param name="postId" value="${si.postId}"></c:param>
+                                                                        </c:url>
+                                                                        <a href="${communityDetailsPage}">${si.title}</a>
+                                                                        <!-- 제목을 클릭하면 /community/details로 URL이 넘어감 -->
+                                                                    </td>
+                                                                    <td>${si.nickname}</td>
+                                                                    <td>${si.createdTime}</td>
+                                                                </tr>
+                                                            </c:forEach>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- 테이블 끝 -->
+                                    </div>
+                                    <!-- 검색 콘텐츠 끝 -->
                                     <!-- Home 탭 콘텐츠 -->
                                     <div class="tab-pane fade show active" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab">
                                         <h3>전체</h3>
@@ -300,6 +352,8 @@
         integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
         crossorigin="anonymous">
     </script>
+    <c:url var="community_js" value="/js/community.js" />
+    <script src="${community_js}"></script>
    
 </body>
 </html>

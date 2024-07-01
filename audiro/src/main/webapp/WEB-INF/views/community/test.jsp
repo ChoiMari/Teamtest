@@ -19,7 +19,7 @@
 </head>
 <body>
     <div class="container">
-        <h1 class="my-4">전체</h1>
+        <h1 class="my-4">Posts</h1>
 
         <!-- 게시물 목록을 표시할 테이블입니다. -->
         <table class="table table-bordered">
@@ -34,13 +34,13 @@
             </thead>
             <tbody>
                 <!-- JSP에서 전달된 posts 리스트를 반복하면서 각 게시물을 테이블 행으로 표시합니다. -->
-                <c:forEach var="an" items="${allListNew}">
+                <c:forEach var="post" items="${posts}">
                     <tr>
-                        <td>${an.postId}</td>
-                        <td>${an.title}</td>
-                        <td>${an.nickname}</td>
-                        <td>${an.good}</td>
-                        <td>${an.createdTime}</td>
+                        <td>${post.postId}</td>
+                        <td>${post.title}</td>
+                        <td>${post.nickname}</td>
+                        <td>${post.good}</td>
+                        <td>${post.createdTime}</td>
                     </tr>
                 </c:forEach>
             </tbody>
@@ -86,5 +86,10 @@
         integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
         crossorigin="anonymous">
     </script>
+    <!-- 우리가 만드는 js파일 앞에 두어야 함 순서중요! 
+        Axio JS 라이브러리 -->
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <c:url var="testJs" value="/js/test.js"></c:url>
+    <script src="${testJs}"></script>
 </body>
 </html>

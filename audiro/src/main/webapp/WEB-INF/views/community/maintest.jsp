@@ -133,7 +133,7 @@
                                                         </thead>
                                                         <tbody>
                                                             <!-- 테이블 바디 -->
-                                                            <c:forEach items="${allListNew}" var="an">
+                                                            <c:forEach items="${posts}" var="an">
                                                                 <!-- Post 컨트롤러에서 애트리뷰트한 이름 "allListNew" -->
                                                                 <!-- 쓸 때는 var 값으로 .해서 사용 -->
                                                                 <tr>
@@ -158,6 +158,41 @@
                                         </div>
                                         <!-- 테이블 끝 -->
                                     </div>
+                                    <!-- 페이징 시작 -->
+                                            <!-- 페이지네이션 링크를 표시하는 부분입니다. -->
+        <nav aria-label="Page navigation">
+            <ul class="pagination justify-content-center">
+                <!-- 현재 페이지가 1보다 크면 이전 페이지 링크를 표시합니다. -->
+                <c:if test="${currentPage > 1}">
+                    <li class="page-item">
+                        <a class="page-link" href="/audiro/community/page/${currentPage - 1}" aria-label="Previous">
+                            <span aria-hidden="true">&laquo;</span>
+                        </a>
+                    </li>
+                </c:if>
+
+                <!-- 1부터 totalPages까지의 숫자를 반복하면서 페이지 링크를 생성합니다. -->
+                <c:forEach var="i" begin="1" end="${totalPages}">
+                    <c:if test="${i == currentPage}">
+                        <li class="page-item active"><a class="page-link" href="#">${i}</a></li>
+                    </c:if>
+                    <c:if test="${i != currentPage}">
+                        <li class="page-item"><a class="page-link" href="/audiro/community/page/${i}">${i}</a></li>
+                    </c:if>
+                </c:forEach>
+
+                <!-- 현재 페이지가 totalPages보다 작으면 다음 페이지 링크를 표시합니다. -->
+                <c:if test="${currentPage < totalPages}">
+                    <li class="page-item">
+                        <a class="page-link" href="/audiro/community/page/${currentPage + 1}" aria-label="Next">
+                            <span aria-hidden="true">&raquo;</span>
+                        </a>
+                    </li>
+                </c:if>
+            </ul>
+        </nav>
+    </div>
+                                    <!-- 페이징 끝 -->
                                     
                                     <!-- Profile 탭 콘텐츠 -->
                                     <div class="tab-pane fade" id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-profile-tab">

@@ -5,10 +5,10 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 import com.audiro.dto.CommunityPostListDto;
+import com.audiro.dto.CommunityPostSearchDto;
 import com.audiro.dto.CommunityRankingDto;
 import com.audiro.repository.CommunityDao;
 import com.audiro.repository.Post;
-
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
@@ -81,7 +81,7 @@ public class CommunityService {
 	}
 	//-----게시판 : 전체/여행메이트/자유 게시판 목록 불러오기 끝 ------
 	
-	//랭킹
+	//--------------------랭킹 시작 --------------------
 	public List<CommunityRankingDto> readRankingLikeUserTop3() {
 		log.debug("readRankingLikeUserTop3()");
 		List<CommunityRankingDto> list = communityDao.selectLikeUserTop3();
@@ -89,6 +89,42 @@ public class CommunityService {
 		return list;
 		
 	}
+	//--------------------랭킹 끝---------------------------
 	
+	//---------------------검색 시작------------------------
+	//TODO : 검색 해보기
+    public List<CommunityPostListDto> searchIdDesc(CommunityPostSearchDto dto) {
+        log.debug("search({})", dto);
+        
+        List<Post> searchList = communityDao.searchKeywordOrderById2(dto);
+        log.debug("searchList({})", searchList);
+        return searchList.stream()
+                .map(CommunityPostListDto::fromEntity)
+                .toList();//->Post타입의 list를 CommunityPostListDto타입으로 변환해서 리턴함.
+    }
+	
+	//---------------------검색 끝------------------------
 
-}
+    
+    
+    //-------------------페이징 시작-----------------------------
+    /**
+     * 특정 페이지와 페이지 크기를 기반으로 데이터를 가져오는 메서드
+     * @param page - 현재 페이지 번호
+     * @param pageSize - 페이지당 항목 수
+     * @return 페이징된 데이터 리스트
+     */
+    public List<Post> getPagedNewAllPosts(int page, int pageSize) {
+        int offset = (page - 1) * pageSize; // 시작 행 번호를 계산합니다.
+        return communityDao.selectPagingEntireOrderByIdDesc(offset, pageSize); // DAO 인터페이스를 호출하여 데이터를 가져옵니다.
+    }
+
+    /**
+     * 총 게시물 수를 가져오는 메서드
+     * @return 총 게시물 수
+     */
+    public int getTotalPostCount() {
+        return communityDao.countPosts(); // DAO 인터페이스를 호출하여 총 게시물 수를 가져옵니다.
+    }
+    //-------------------페이징 끝-------------------------------
+}//서비스 클래스 끝
