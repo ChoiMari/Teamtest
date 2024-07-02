@@ -1,14 +1,21 @@
 package com.audiro.web;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.audiro.dto.CommunityPostListDto;
+import com.audiro.dto.CommunityPostSearchDto;
+import com.audiro.dto.CommunityRankingDto;
 import com.audiro.repository.Post;
+import com.audiro.service.CommunityService;
 import com.audiro.service.TestService;
 
 import lombok.RequiredArgsConstructor;
@@ -20,6 +27,7 @@ import lombok.extern.slf4j.Slf4j;
 @RequestMapping("/community")
 public class TestController {
     private final TestService testService;
+    private final CommunityService communityService;
 
     /**
      * 특정 페이지의 게시물 목록을 가져오는 메서드
@@ -27,7 +35,7 @@ public class TestController {
      * @param model - JSP로 데이터를 전달하는 모델 객체
      * @return JSP 파일 이름 (community/test.jsp)
      */
-    @RequestMapping("/maintest/{pageNumber}")
+    @RequestMapping("/page/{pageNumber}")
     public String getPagedPosts(@PathVariable("pageNumber") int pageNumber, Model model) {
         log.debug("getPagedPosts()");
         log.debug("pageNumber: {}", pageNumber);
@@ -46,6 +54,8 @@ public class TestController {
 
         return "community/test"; // community/test.jsp 파일로 이동합니다
     }
+    
+    
     
 }
 

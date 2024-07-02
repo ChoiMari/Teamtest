@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.audiro.repository.PagingDao">
+    <!-- 페이징 처리. 총 게시물 수를 가져오는 쿼리 -->
+    <select id="countPosts" resultType="int">
+        SELECT COUNT(*)
+        FROM post p, users u
+        WHERE p.users_id = u.users_id
+        AND (p.post_type_id = 20 OR p.post_type_id = 30)
+    </select>
+
+    <!-- 페이징 처리. 통합(전체) 게시판 목록 select 최신순으로 가져옴. 페이징 처리 20개씩 -->
+    <select id="selectPagingEntireOrderByIdDesc" resultType="com.audiro.repository.Post">
+        SELECT p.*, u.nickname
+        FROM post p, users u
+        WHERE p.users_id = u.users_id
+        AND (p.post_type_id = 20 OR p.post_type_id = 30)
+        ORDER BY p.created_time DESC
+        OFFSET #{offset} ROWS FETCH NEXT #{limit} ROWS ONLY
+    </select>
+
+</mapper>

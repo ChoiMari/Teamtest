@@ -5,7 +5,7 @@ console.log('연결');
 // 게시물 데이터를 로드하는 함수
         function loadPosts(page) {
             // 서버에서 데이터 가져오기
-            axios.get('/audiro/community/api/posts?page=' + page)
+            axios.get('../community/api/posts?page=' + page)
                 .then(response => {
                     // 서버로부터 받은 데이터를 변수에 저장
                     const posts = response.data.posts;
@@ -17,12 +17,12 @@ console.log('연결');
                     postTableBody.innerHTML = '';
                     posts.forEach(post => {
                         const row = `
-                            <tr>
-                                <td>${post.postId}</td>
-                                <td>${post.title}</td>
-                                <td>${post.nickname}</td>
-                                <td>${post.good}</td>
-                                <td>${post.createdTime}</td>
+                            <tr class="table-light">
+                                <td class="text-center">${post.postId}</td>
+                                <td class="text-center">${post.title}</td>
+                                <td class="text-center">${post.nickname}</td>
+                                <td class="text-center">${post.good}</td>
+                                <td class="text-center">${post.createdTime}</td>
                             </tr>
                         `;
                         postTableBody.innerHTML += row;

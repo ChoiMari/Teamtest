@@ -352,8 +352,8 @@
         integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
         crossorigin="anonymous">
     </script>
-    <c:url var="community_js" value="/js/community.js" />
-    <script src="${community_js}"></script>
+<!--<c:url var="community_js" value="/js/community.js" />
+    <script src="${community_js}"></script>  -->
    
 </body>
 </html>

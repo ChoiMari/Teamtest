@@ -30,7 +30,7 @@ public class CommunityController {
 
 	
 	@GetMapping("/main")
-	public void main(Model model) {
+	public String main(Model model) {
 		log.debug("main()");
 		//전체 게시판 최신순/인기순
 //		List<CommunityPostListDto> allListNew = communityService.readEntirePostCreateTimeDesc();
@@ -55,7 +55,8 @@ public class CommunityController {
 //		model.addAttribute("freeListNew",freeListNew);
 //		model.addAttribute("freeListGood",freeListGood);
 		
-		
+		//return "/community/test2";
+		return "/community/test3";
 	}
 	
 	//TODO : main test ------------------------------------------------시작
