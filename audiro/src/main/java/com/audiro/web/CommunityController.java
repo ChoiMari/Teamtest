@@ -27,12 +27,17 @@ public class CommunityController {
 	//의존성 주입
 	private final CommunityService communityService;
 	
-
-	
 	@GetMapping("/main")
-	public String main(Model model) {
+	public void main(Model model) {
 		log.debug("main()");
-		//전체 게시판 최신순/인기순
+
+	}
+	
+//	//TODO : main test ------------------------------------------------시작
+//	@GetMapping("/maintest")
+//	public void maintest(Model model) {
+//		log.debug("maintest()");
+//		//전체 게시판 최신순/인기순
 //		List<CommunityPostListDto> allListNew = communityService.readEntirePostCreateTimeDesc();
 //		log.debug(allListNew.toString());
 //		List<CommunityPostListDto> allListGood = communityService.readEntirePostGoodDesc();
@@ -47,126 +52,95 @@ public class CommunityController {
 //		log.debug(freeListNew.toString());
 //		List<CommunityPostListDto> freeListGood = communityService.readFreePostGoodDesc();
 //		log.debug(freeListGood.toString());
-		
+//		
 //		model.addAttribute("allListNew",allListNew);
 //		model.addAttribute("allListGood",allListGood);
 //		model.addAttribute("mateListNew",mateListNew);
 //		model.addAttribute("mateListGood",mateListGood);
 //		model.addAttribute("freeListNew",freeListNew);
 //		model.addAttribute("freeListGood",freeListGood);
-		
-		//return "/community/test2";
-		return "/community/test3";
-	}
-	
-	//TODO : main test ------------------------------------------------시작
-	@GetMapping("/maintest")
-	public void maintest(Model model) {
-		log.debug("maintest()");
-		//전체 게시판 최신순/인기순
-		List<CommunityPostListDto> allListNew = communityService.readEntirePostCreateTimeDesc();
-		log.debug(allListNew.toString());
-		List<CommunityPostListDto> allListGood = communityService.readEntirePostGoodDesc();
-		log.debug(allListGood.toString());
-		//여행 메이트 게시판 최신순/인기순
-		List<CommunityPostListDto> mateListNew = communityService.readMatePostCreateTimeDesc();
-		log.debug(mateListNew.toString());
-		List<CommunityPostListDto> mateListGood = communityService.readMatePostGoodDesc();
-		log.debug(mateListGood.toString());
-		//자유 게시판 최신순/인기순
-		List<CommunityPostListDto> freeListNew = communityService.readFreePostCreateTimeDesc();
-		log.debug(freeListNew.toString());
-		List<CommunityPostListDto> freeListGood = communityService.readFreePostGoodDesc();
-		log.debug(freeListGood.toString());
-		
-		model.addAttribute("allListNew",allListNew);
-		model.addAttribute("allListGood",allListGood);
-		model.addAttribute("mateListNew",mateListNew);
-		model.addAttribute("mateListGood",mateListGood);
-		model.addAttribute("freeListNew",freeListNew);
-		model.addAttribute("freeListGood",freeListGood);
-		
-		
-	}
-	
-	
-	@GetMapping("/maintest3")
-	public void maintest3(Model model) {
-		log.debug("maintest3()");
-		//전체 게시판 최신순/인기순
-		List<CommunityPostListDto> allListNew = communityService.readEntirePostCreateTimeDesc();
-		log.debug(allListNew.toString());
-		List<CommunityPostListDto> allListGood = communityService.readEntirePostGoodDesc();
-		log.debug(allListGood.toString());
-		//여행 메이트 게시판 최신순/인기순
-		List<CommunityPostListDto> mateListNew = communityService.readMatePostCreateTimeDesc();
-		log.debug(mateListNew.toString());
-		List<CommunityPostListDto> mateListGood = communityService.readMatePostGoodDesc();
-		log.debug(mateListGood.toString());
-		//자유 게시판 최신순/인기순
-		List<CommunityPostListDto> freeListNew = communityService.readFreePostCreateTimeDesc();
-		log.debug(freeListNew.toString());
-		List<CommunityPostListDto> freeListGood = communityService.readFreePostGoodDesc();
-		log.debug(freeListGood.toString());
-		
-		model.addAttribute("allListNew",allListNew);
-		model.addAttribute("allListGood",allListGood);
-		model.addAttribute("mateListNew",mateListNew);
-		model.addAttribute("mateListGood",mateListGood);
-		model.addAttribute("freeListNew",freeListNew);
-		model.addAttribute("freeListGood",freeListGood);
-		
-		//랭킹
-		//관심유저(찜많은) 순위 3명 select
-		List<CommunityRankingDto> userLikeTop3List = communityService.readRankingLikeUserTop3();
-		model.addAttribute("userLikeTop3List", userLikeTop3List);
-		
-		
-	}
-	//main test ------------------------------------------------끝
-	
-	//검색
-	//검색 최신순
-    @GetMapping("/search")
-    public String search(CommunityPostSearchDto dto, Model model) {
-        log.debug("search({})", dto);
-        
-        List<CommunityPostListDto> list = communityService.searchIdDesc(dto);
-        model.addAttribute("searchOrderByIdDescList", list);
-        
-        //-----------------------
-		log.debug("/search/maintest3()");
-		//전체 게시판 최신순/인기순
-		List<CommunityPostListDto> allListNew = communityService.readEntirePostCreateTimeDesc();
-		log.debug(allListNew.toString());
-		List<CommunityPostListDto> allListGood = communityService.readEntirePostGoodDesc();
-		log.debug(allListGood.toString());
-		//여행 메이트 게시판 최신순/인기순
-		List<CommunityPostListDto> mateListNew = communityService.readMatePostCreateTimeDesc();
-		log.debug(mateListNew.toString());
-		List<CommunityPostListDto> mateListGood = communityService.readMatePostGoodDesc();
-		log.debug(mateListGood.toString());
-		//자유 게시판 최신순/인기순
-		List<CommunityPostListDto> freeListNew = communityService.readFreePostCreateTimeDesc();
-		log.debug(freeListNew.toString());
-		List<CommunityPostListDto> freeListGood = communityService.readFreePostGoodDesc();
-		log.debug(freeListGood.toString());
-		
-		model.addAttribute("allListNew",allListNew);
-		model.addAttribute("allListGood",allListGood);
-		model.addAttribute("mateListNew",mateListNew);
-		model.addAttribute("mateListGood",mateListGood);
-		model.addAttribute("freeListNew",freeListNew);
-		model.addAttribute("freeListGood",freeListGood);
-		
-		//랭킹
-		//관심유저(찜많은) 순위 3명 select
-		List<CommunityRankingDto> userLikeTop3List = communityService.readRankingLikeUserTop3();
-		model.addAttribute("userLikeTop3List", userLikeTop3List);
-        //------------------
-        
-        return "community/maintest3";
-    }
+//		
+//		
+//	}
+//	
+//	
+//	@GetMapping("/maintest3")
+//	public void maintest3(Model model) {
+//		log.debug("maintest3()");
+//		//전체 게시판 최신순/인기순
+//		List<CommunityPostListDto> allListNew = communityService.readEntirePostCreateTimeDesc();
+//		log.debug(allListNew.toString());
+//		List<CommunityPostListDto> allListGood = communityService.readEntirePostGoodDesc();
+//		log.debug(allListGood.toString());
+//		//여행 메이트 게시판 최신순/인기순
+//		List<CommunityPostListDto> mateListNew = communityService.readMatePostCreateTimeDesc();
+//		log.debug(mateListNew.toString());
+//		List<CommunityPostListDto> mateListGood = communityService.readMatePostGoodDesc();
+//		log.debug(mateListGood.toString());
+//		//자유 게시판 최신순/인기순
+//		List<CommunityPostListDto> freeListNew = communityService.readFreePostCreateTimeDesc();
+//		log.debug(freeListNew.toString());
+//		List<CommunityPostListDto> freeListGood = communityService.readFreePostGoodDesc();
+//		log.debug(freeListGood.toString());
+//		
+//		model.addAttribute("allListNew",allListNew);
+//		model.addAttribute("allListGood",allListGood);
+//		model.addAttribute("mateListNew",mateListNew);
+//		model.addAttribute("mateListGood",mateListGood);
+//		model.addAttribute("freeListNew",freeListNew);
+//		model.addAttribute("freeListGood",freeListGood);
+//		
+//		//랭킹
+//		//관심유저(찜많은) 순위 3명 select
+//		List<CommunityRankingDto> userLikeTop3List = communityService.readRankingLikeUserTop3();
+//		model.addAttribute("userLikeTop3List", userLikeTop3List);
+//		
+//		
+//	}
+//	//main test ------------------------------------------------끝
+//	
+//	//검색
+//	//검색 최신순
+//    @GetMapping("/search")
+//    public String search(CommunityPostSearchDto dto, Model model) {
+//        log.debug("search({})", dto);
+//        
+//        List<CommunityPostListDto> list = communityService.searchIdDesc(dto);
+//        model.addAttribute("searchOrderByIdDescList", list);
+//        
+//        //-----------------------
+//		log.debug("/search/maintest3()");
+//		//전체 게시판 최신순/인기순
+//		List<CommunityPostListDto> allListNew = communityService.readEntirePostCreateTimeDesc();
+//		log.debug(allListNew.toString());
+//		List<CommunityPostListDto> allListGood = communityService.readEntirePostGoodDesc();
+//		log.debug(allListGood.toString());
+//		//여행 메이트 게시판 최신순/인기순
+//		List<CommunityPostListDto> mateListNew = communityService.readMatePostCreateTimeDesc();
+//		log.debug(mateListNew.toString());
+//		List<CommunityPostListDto> mateListGood = communityService.readMatePostGoodDesc();
+//		log.debug(mateListGood.toString());
+//		//자유 게시판 최신순/인기순
+//		List<CommunityPostListDto> freeListNew = communityService.readFreePostCreateTimeDesc();
+//		log.debug(freeListNew.toString());
+//		List<CommunityPostListDto> freeListGood = communityService.readFreePostGoodDesc();
+//		log.debug(freeListGood.toString());
+//		
+//		model.addAttribute("allListNew",allListNew);
+//		model.addAttribute("allListGood",allListGood);
+//		model.addAttribute("mateListNew",mateListNew);
+//		model.addAttribute("mateListGood",mateListGood);
+//		model.addAttribute("freeListNew",freeListNew);
+//		model.addAttribute("freeListGood",freeListGood);
+//		
+//		//랭킹
+//		//관심유저(찜많은) 순위 3명 select
+//		List<CommunityRankingDto> userLikeTop3List = communityService.readRankingLikeUserTop3();
+//		model.addAttribute("userLikeTop3List", userLikeTop3List);
+//        //------------------
+//        
+//        return "community/maintest3";
+//    }
     
     
 //    @RequestMapping("/main/page/{pageNumber}")

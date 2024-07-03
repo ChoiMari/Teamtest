@@ -208,7 +208,7 @@
 integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous">
 </script>
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-<c:url var="testJS" value="/js/test2.js" />
-<script src="${testJS}"></script>
+<c:url var="communityJS" value="/js/community.js" />
+<script src="${communityJS}"></script>
 </body>
 </html>

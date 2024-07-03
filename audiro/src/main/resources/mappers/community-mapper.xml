@@ -76,7 +76,7 @@
     
 <!-- ///////////////////페이징 처리 시작//////////////////////////////// -->
 
-    <!-- 페이징 처리. 총 게시물 수를 가져오는 쿼리 -->
+    <!-- 페이징 처리 위해서 총 게시물 수를 가져오는 쿼리 -->
     <select id="countPosts" resultType="int">
         SELECT COUNT(*)
         FROM post p, users u
@@ -84,7 +84,7 @@
         AND (p.post_type_id = 20 OR p.post_type_id = 30)
     </select>
 
-    <!-- 페이징 처리. 통합(전체) 게시판 목록 select 최신순으로 가져옴. 페이징 처리 20개씩 -->
+    <!-- 페이징 처리. 통합(전체) 게시판 목록 select 최신순으로 가져옴. 페이징 처리 10개씩 -->
     <select id="selectPagingEntireOrderByIdDesc" resultType="com.audiro.repository.Post">
         SELECT p.*, u.nickname
         FROM post p, users u
