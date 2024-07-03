@@ -34,7 +34,7 @@ console.log('연결');
                         // 현재 페이지가 1보다 크면 이전 페이지 링크 추가
                         pagination.innerHTML += `
                             <li class="page-item">
-                                <a class="page-link" href="#" aria-label="Previous" onclick="loadPosts(${page - 1})">
+                                <a class="page-link" href="#" aria-label="Previous" data-page="${page - 1}">
                                     <span aria-hidden="true">&laquo;</span>
                                 </a>
                             </li>
@@ -45,24 +45,36 @@ console.log('연결');
                         if (i === page) {
                             pagination.innerHTML += `<li class="page-item active"><a class="page-link" href="#">${i}</a></li>`;
                         } else {
-                            pagination.innerHTML += `<li class="page-item"><a class="page-link" href="#" onclick="loadPosts(${i})">${i}</a></li>`;
+                            pagination.innerHTML += `<li class="page-item"><a class="page-link" href="#" data-page="${i}">${i}</a></li>`;
                         }
                     }
                     if (page < totalPages) {
                         // 현재 페이지가 전체 페이지 수보다 작으면 다음 페이지 링크 추가
                         pagination.innerHTML += `
                             <li class="page-item">
-                                <a class="page-link" href="#" aria-label="Next" onclick="loadPosts(${page + 1})">
+                                <a class="page-link" href="#" aria-label="Next" data-page="${page + 1}">
                                     <span aria-hidden="true">&raquo;</span>
                                 </a>
                             </li>
                         `;
+                    }
+                    const pageLinks = document.querySelectorAll('a.page-link');
+                    for (let a of pageLinks) {
+                        a.addEventListener('click', loadPage);
                     }
                 })
                 .catch(error => {
                     // 에러가 발생하면 콘솔에 에러 메시지 출력
                     console.error('Error fetching posts:', error);
                 });
+        }
+        
+        function loadPage(e) {
+            e.preventDefault();
+            const pageNo = e.target.getAttribute('data-page');
+            if (pageNo) {
+                loadPosts(pageNo);
+            }
         }
 
         // 페이지 로드 시 초기 데이터를 가져옴
