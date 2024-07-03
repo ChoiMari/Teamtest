@@ -1,83 +1,156 @@
-/**
- * /community/main.jsp에 포함됨
- */
-console.log('연결');
-// 게시물 데이터를 로드하는 함수
-        function loadPosts(page) {
-            // 서버에서 데이터 가져오기
-            axios.get('../community/api/postsAllRecent?page=' + page)
-                .then(response => {
-                    // 서버로부터 받은 데이터를 변수에 저장
-                    const posts = response.data.posts;
-                    const totalPages = response.data.totalPages;
-                    const postTableBody = document.getElementById('postTableBody');
-                    const pagination = document.getElementById('pagination');
+// 전체 탭 게시물 데이터를 로드하는 함수
+function loadPosts1(page) {
+    axios.get('../community/api/postsAllRecent?page=' + page)
+        .then(response => {
+            const posts = response.data.posts;
+            const totalPages = response.data.totalPages;
 
-                    // 게시물 목록을 테이블에 추가
-                    postTableBody.innerHTML = '';
-                    posts.forEach(post => {
-                        const row = `
-                            <tr class="table-light">
-                                <td class="text-center">${post.postId}</td>
-                                <td class="text-center">${post.title}</td>
-                                <td class="text-center">${post.nickname}</td>
-                                <td class="text-center">${post.good}</td>
-                                <td class="text-center">${post.createdTime}</td>
-                            </tr>
-                        `;
-                        postTableBody.innerHTML += row;
-                    });
+            const postTableBody = document.getElementById('postTableBody');
+            const pagination = document.getElementById('pagination');
 
-                    // 페이지네이션 링크를 업데이트
-                    pagination.innerHTML = '';
-                    if (page > 1) {
-                        // 현재 페이지가 1보다 크면 이전 페이지 링크 추가
-                        pagination.innerHTML += `
-                            <li class="page-item">
-                                <a class="page-link" href="#" aria-label="Previous" data-page="${page - 1}">
-                                    <span aria-hidden="true">&laquo;</span>
-                                </a>
-                            </li>
-                        `;
-                    }
-                    // 전체 페이지 수만큼 반복하여 페이지 링크 추가
-                    for (let i = 1; i <= totalPages; i++) {
-                        if (i === page) {
-                            pagination.innerHTML += `<li class="page-item active"><a class="page-link" href="#">${i}</a></li>`;
-                        } else {
-                            pagination.innerHTML += `<li class="page-item"><a class="page-link" href="#" data-page="${i}">${i}</a></li>`;
-                        }
-                    }
-                    if (page < totalPages) {
-                        // 현재 페이지가 전체 페이지 수보다 작으면 다음 페이지 링크 추가
-                        pagination.innerHTML += `
-                            <li class="page-item">
-                                <a class="page-link" href="#" aria-label="Next" data-page="${page + 1}">
-                                    <span aria-hidden="true">&raquo;</span>
-                                </a>
-                            </li>
-                        `;
-                    }
-                    const pageLinks = document.querySelectorAll('a.page-link');
-                    for (let a of pageLinks) {
-                        a.addEventListener('click', loadPage);
-                    }
-                })
-                .catch(error => {
-                    // 에러가 발생하면 콘솔에 에러 메시지 출력
-                    console.error('Error fetching posts:', error);
-                });
-        }
-        
-        function loadPage(e) {
-            e.preventDefault();
-            const pageNo = e.target.getAttribute('data-page');
-            if (pageNo) {
-                loadPosts(pageNo);
+            postTableBody.innerHTML = '';
+            posts.forEach(post => {
+                const row = `
+                    <tr class="table-light">
+                        <td class="text-center">${post.postId}</td>
+                        <td class="text-center">${post.title}</td>
+                        <td class="text-center">${post.nickname}</td>
+                        <td class="text-center">${post.good}</td>
+                        <td class="text-center">${post.createdTime}</td>
+                    </tr>
+                `;
+                postTableBody.innerHTML += row;
+            });
+
+            const maxPagesToShow = 5;
+            const currentPageGroup = Math.floor((page - 1) / maxPagesToShow);
+            const startPage = currentPageGroup * maxPagesToShow + 1;
+            const endPage = Math.min(startPage + maxPagesToShow - 1, totalPages);
+
+            pagination.innerHTML = '';
+            if (page > 1) {
+                pagination.innerHTML += `
+                    <li class="page-item">
+                        <a class="page-link" href="#" aria-label="Previous" data-page="${page - 1}">
+                            <span aria-hidden="true">&laquo;</span>
+                        </a>
+                    </li>
+                `;
             }
-        }
+            for (let i = startPage; i <= endPage; i++) {
+                if (i === page) {
+                    pagination.innerHTML += `<li class="page-item active"><a class="page-link" href="#" data-page="${i}">${i}</a></li>`;
+                } else {
+                    pagination.innerHTML += `<li class="page-item"><a class="page-link" href="#" data-page="${i}">${i}</a></li>`;
+                }
+            }
+            if (page < totalPages) {
+                pagination.innerHTML += `
+                    <li class="page-item">
+                        <a class="page-link" href="#" aria-label="Next" data-page="${page + 1}">
+                            <span aria-hidden="true">&raquo;</span>
+                        </a>
+                    </li>
+                `;
+            }
 
-        // 페이지 로드 시 초기 데이터를 가져옴
-        document.addEventListener('DOMContentLoaded', function() {
-            loadPosts(1); // 첫 번째 페이지의 데이터를 로드
+            document.querySelectorAll('#pagination a.page-link').forEach(a => {
+                a.addEventListener('click', loadPage1);
+            });
+        })
+        .catch(error => {
+            console.error('Error fetching posts:', error);
         });
+}
+
+// 여행 게시물 탭 게시물 데이터를 로드하는 함수
+function loadPosts2(page) {
+    axios.get('../community/api/postsMateRecent?page=' + page)
+        .then(response2 => {
+            const posts2 = response2.data.posts2;
+            const totalPages2 = response2.data.totalPages2;
+
+            const postTableBody2 = document.getElementById('postTableBody2');
+            const pagination2 = document.getElementById('pagination2');
+
+            postTableBody2.innerHTML = '';
+            posts2.forEach(post2 => {
+                const row = `
+                    <tr class="table-light">
+                        <td class="text-center">${post2.postId}</td>
+                        <td class="text-center">${post2.title}</td>
+                        <td class="text-center">${post2.nickname}</td>
+                        <td class="text-center">${post2.good}</td>
+                        <td class="text-center">${post2.createdTime}</td>
+                    </tr>
+                `;
+                postTableBody2.innerHTML += row;
+            });
+
+            const maxPagesToShow = 5;
+            const currentPageGroup = Math.floor((page - 1) / maxPagesToShow);
+            const startPage = currentPageGroup * maxPagesToShow + 1;
+            const endPage = Math.min(startPage + maxPagesToShow - 1, totalPages2);
+
+            pagination2.innerHTML = '';
+            if (page > 1) {
+                pagination2.innerHTML += `
+                    <li class="page-item">
+                        <a class="page-link" href="#" aria-label="Previous" data-page="${page - 1}">
+                            <span aria-hidden="true">&laquo;</span>
+                        </a>
+                    </li>
+                `;
+            }
+            for (let i = startPage; i <= endPage; i++) {
+                if (i === page) {
+                    pagination2.innerHTML += `<li class="page-item active"><a class="page-link" href="#" data-page="${i}">${i}</a></li>`;
+                } else {
+                    pagination2.innerHTML += `<li class="page-item"><a class="page-link" href="#" data-page="${i}">${i}</a></li>`;
+                }
+            }
+            if (page < totalPages2) {
+                pagination2.innerHTML += `
+                    <li class="page-item">
+                        <a class="page-link" href="#" aria-label="Next" data-page="${page + 1}">
+                            <span aria-hidden="true">&raquo;</span>
+                        </a>
+                    </li>
+                `;
+            }
+
+            document.querySelectorAll('#pagination2 a.page-link').forEach(a => {
+                a.addEventListener('click', loadPage2);
+            });
+        })
+        .catch(error => {
+            console.error('Error fetching posts:', error);
+        });
+}
+
+// 페이지네이션 클릭 이벤트 핸들러 - 전체 탭
+function loadPage1(e) {
+    e.preventDefault();
+    const pageNo = e.target.getAttribute('data-page');
+    if (pageNo) {
+        loadPosts1(parseInt(pageNo, 10));
+    }
+}
+
+// 페이지네이션 클릭 이벤트 핸들러 - 여행 메이트 탭
+function loadPage2(e) {
+    e.preventDefault();
+    const pageNo = e.target.getAttribute('data-page');
+    if (pageNo) {
+        loadPosts2(parseInt(pageNo, 10));
+    }
+}
+
+// 초기 데이터 로드 및 탭 활성화 시 데이터 로드
+document.addEventListener('DOMContentLoaded', function() {
+    loadPosts1(1);
+});
+
+document.querySelector('a[data-bs-toggle="tab"][href="#mate"]').addEventListener('shown.bs.tab', function () {
+    loadPosts2(1);
+});

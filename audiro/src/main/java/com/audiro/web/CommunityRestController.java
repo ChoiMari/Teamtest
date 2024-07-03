@@ -32,7 +32,7 @@ public class CommunityRestController {
         //pageSize : 한 페이지당 가져올 게시물 수(10개로 설정해둠. 필요에 맞게 개발자의 임의로 설정하면 된다.)
     	int pageSize = 10;
     	//페이징 처리해서 전체(여행+자유)게시판 글 최신순으로 정렬해서 select하는 서비스 호출해서 list에 저장
-        List<Post> posts = communityService.getSelectPagingNewOrderByIdDesc(page, pageSize);
+        List<Post> posts = communityService.getSelectPagingAllNewOrderByIdDesc(page, pageSize);
         //전체 페이지 수
         int totalPages = communityService.getTotalPages(pageSize);
 
@@ -44,22 +44,47 @@ public class CommunityRestController {
         return response;
     }
     
-    //TODO :전체(여행+자유)게시판 인기순 정렬
-    @GetMapping("/community/api/postsAllPopularity")//->비동기. 에이작스.뷰와 연결된 자바스트립트에서 axios.해서 이 url에 매핑시킨 곳으로 데이터가 전달되어 사용된다. 
-    public Map<String, Object> getPostAllPopularity(@RequestParam(defaultValue = "1") int page) { //defaultValue = "1"이걸 꼭 설정 해주어야함. 비동기라 url이 바뀌지 않기 때문에. 설정해 두지 않으면 여기에 값을 넣어 호출 없다. 처음 초기값 1. 즉 현재 페이지가 1페이지임.
-        //pageSize : 한 페이지당 가져올 게시물 수(10개로 설정해둠)
-    	int pageSize = 10;
-    	//페이징 처리해서 전체(여행+자유)게시판 글 최신순으로 정렬해서 select하는 서비스 호출해서 list에 저장
-        List<Post> posts = communityService.getSelectPagingNewOrderByIdDesc(page, pageSize);
-        //전체 페이지 수
-        int totalPages = communityService.getTotalPages(pageSize);
+//    //TODO :전체(여행+자유)게시판 인기순 정렬
+//    @GetMapping("/community/api/postsAllPopularity")//->비동기. 에이작스.뷰와 연결된 자바스트립트에서 axios.해서 이 url에 매핑시킨 곳으로 데이터가 전달되어 사용된다. 
+//    public Map<String, Object> getPostAllPopularity(@RequestParam(defaultValue = "1") int page) { //defaultValue = "1"이걸 꼭 설정 해주어야함. 비동기라 url이 바뀌지 않기 때문에. 설정해 두지 않으면 여기에 값을 넣어 호출 없다. 처음 초기값 1. 즉 현재 페이지가 1페이지임.
+//        //pageSize : 한 페이지당 가져올 게시물 수(10개로 설정해둠)
+//    	int pageSize = 10;
+//    	//페이징 처리해서 전체(여행+자유)게시판 글 최신순으로 정렬해서 select하는 서비스 호출해서 list에 저장
+//        List<Post> posts = communityService.getSelectPagingNewOrderByIdDesc(page, pageSize);
+//        //전체 페이지 수
+//        int totalPages = communityService.getTotalPages(pageSize);
+//
+//        Map<String, Object> response = new HashMap<>();
+//        //response객체에 저장함
+//        response.put("posts", posts);
+//        response.put("totalPages", totalPages);
+//        //같은 url에 매핑된 자바스크립 코드에서 이 데이터를 받아서 이걸로 원하는 조작을 할 것.
+//        return response;
+//    }
 
-        Map<String, Object> response = new HashMap<>();
+    //TODO : 여행메이트 게시판 최신순 정렬
+    @GetMapping("/community/api/postsMateRecent")//->비동기. 에이작스.뷰와 연결된 자바스트립트에서 axios.해서 이 url에 매핑시킨 곳으로 데이터가 전달되어 사용된다. 
+    public Map<String, Object> getPostMateNew(@RequestParam(defaultValue = "1") int page) { //defaultValue = "1"이걸 꼭 설정 해주어야함. 비동기라 url이 바뀌지 않기 때문에. 설정해 두지 않으면 여기에 값을 넣어 호출 없다. 처음 초기값 1. 즉 현재 페이지가 1페이지임.
+        log.debug("getPostMateNew()");
+        log.debug("page:{}",page);
+    	//pageSize : 한 페이지당 가져올 게시물 수(10개로 설정해둠)
+    	int pageSize = 10;
+    	//페이징 처리해서 여행메이트 게시판 글 최신순으로 정렬해서 select하는 서비스 호출해서 list에 저장
+        List<Post> posts2 = communityService.getSelectPagingMateNewOrderByIdDesc(page, pageSize);
+        log.debug(posts2.toString());
+        //전체 페이지 수
+        int totalPages2 = communityService.getMatePages(pageSize);
+        log.debug("totalPages2: {}",totalPages2);
+        
+        Map<String, Object> response2 = new HashMap<>();
         //response객체에 저장함
-        response.put("posts", posts);
-        response.put("totalPages", totalPages);
+        response2.put("posts2", posts2);
+        response2.put("totalPages2", totalPages2);
         //같은 url에 매핑된 자바스크립 코드에서 이 데이터를 받아서 이걸로 원하는 조작을 할 것.
-        return response;
+        log.debug("response2 : {}", response2);
+        return response2;
     }
+    
+    
   //---------------페이징 처리 끝 ------------------------------
 }

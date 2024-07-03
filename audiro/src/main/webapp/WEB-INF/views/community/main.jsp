@@ -9,7 +9,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>어디로</title>
-    <link href="../css/bootstrap.css" rel="stylesheet" />
+    <link href="../css/community.css" rel="stylesheet" />
 </head>
 <body>
     <div class="container">
@@ -115,13 +115,13 @@
 <div class="mt-4 ms-3">
     <ul class="nav nav-tabs mt-2" role="tablist">
         <li class="nav-item" role="presentation">
-          <a class="nav-link active" data-bs-toggle="tab" href="#home" aria-selected="true" role="tab">전체</a>
+          <a class="nav-link active" data-bs-toggle="tab" href="#all" aria-selected="true" role="tab">전체</a>
         </li>
         <li class="nav-item" role="presentation">
-          <a class="nav-link" data-bs-toggle="tab" href="#profile" aria-selected="false" tabindex="-1" role="tab">여행메이트</a>
+          <a class="nav-link" data-bs-toggle="tab" href="#mate" aria-selected="false" tabindex="-1" role="tab" aria-controls="mate">여행메이트</a>
         </li>
         <li class="nav-item" role="presentation">
-            <a class="nav-link" data-bs-toggle="tab" href="#profile" aria-selected="false" tabindex="-1" role="tab">자유게시판</a>
+            <a class="nav-link" data-bs-toggle="tab" href="#free" aria-selected="false" tabindex="-1" role="tab">자유게시판</a>
           </li>
           <li class="nav-item" role="presentation">
             <a class="nav-link disabled" href="#" aria-selected="false" tabindex="-1" role="tab">검색 결과</a>
@@ -163,7 +163,8 @@
       <!--탭버튼 끝-->
       <!--탭콘텐츠시작-->
       <div id="myTabContent" class="tab-content">
-                <div class="tab-pane fade show active" id="home" role="tabpanel">
+      <!-- 전체 탭 내용 시작 -->
+                <div class="tab-pane fade show active" id="all" role="tabpanel">
                     <!-- 전체 글 목록 테이블 시작 -->
                     <table class="table table-hover mt-2">
                         <thead class="table-dark">
@@ -187,10 +188,62 @@
                         </ul>
                     </nav>
                     <!-- 전체 글 목록 테이블 끝 -->
-                </div>
-                <div class="tab-pane fade" id="profile" role="tabpanel">
-          <p>Food truck fixie locavore, accusamus mcsweeney's marfa nulla single-origin coffee squid. Exercitation +1 labore velit, blog sartorial PBR leggings next level wes anderson artisan four loko farm-to-table craft beer twee. Qui photo booth letterpress, commodo enim craft beer mlkshk aliquip jean shorts ullamco ad vinyl cillum PBR. Homo nostrud organic, assumenda labore aesthetic magna delectus mollit.</p>
+                </div><!-- 전체 탭 내용 끝 -->
+                
+                <!-- 여행 메이트 탭 내용 시작 -->
+                <div class="tab-pane fade" id="mate" role="tabpanel" aria-labelledby="mate-tab">
+                    <!-- 여행메이트 글 목록 테이블 시작 -->
+                    <table class="table table-hover mt-2">
+                        <thead class="table-dark">
+                            <tr>
+                                <th class="text-center">#</th>
+                                <th class="text-center">Title</th>
+                                <th class="text-center">Nickname</th>
+                                <th class="text-center">Good</th>
+                                <th class="text-center">Created Time</th>
+                            </tr>
+                        </thead>
+                        <tbody id="postTableBody2">
+                            <!-- AJAX로 데이터를 가져와 이곳에 삽입할 것입니다. -->
+                        </tbody>
+                    </table>
+
+                    <nav aria-label="Page navigation">
+                        <ul class="pagination justify-content-center"
+                            id="pagination2">
+                            <!-- AJAX로 페이지 링크를 가져와 이곳에 삽입할 것입니다. -->
+                        </ul>
+                    </nav>
+                    <!-- 여행메이트 글 목록 테이블 끝 -->
         </div>
+        <!-- 여행 메이트 탭 내용 끝-->
+        <!-- 자유 게시판 탭 내용 시작 -->
+                <div class="tab-pane fade" id="free" role="tabpanel">
+                    <!-- 전체 글 목록 테이블 시작 -->
+                    <table class="table table-hover mt-2">
+                        <thead class="table-dark">
+                            <tr>
+                                <th class="text-center">#</th>
+                                <th class="text-center">Title</th>
+                                <th class="text-center">Nickname</th>
+                                <th class="text-center">Good</th>
+                                <th class="text-center">Created Time</th>
+                            </tr>
+                        </thead>
+                        <tbody id="postTableBody">
+                            <!-- AJAX로 데이터를 가져와 이곳에 삽입할 것입니다. -->
+                        </tbody>
+                    </table>
+
+                    <nav aria-label="Page navigation">
+                        <ul class="pagination justify-content-center"
+                            id="pagination">
+                            <!-- AJAX로 페이지 링크를 가져와 이곳에 삽입할 것입니다. -->
+                        </ul>
+                    </nav>
+                    <!-- 전체 글 목록 테이블 끝 -->
+        </div>
+        <!-- 자유 게시판 탭 내용 끝 -->
         <div class="tab-pane fade" id="dropdown1">
           <p>Etsy mixtape wayfarers, ethical wes anderson tofu before they sold out mcsweeney's organic lomo retro fanny pack lo-fi farm-to-table readymade. Messenger bag gentrify pitchfork tattooed craft beer, iphone skateboard locavore carles etsy salvia banksy hoodie helvetica. DIY synth PBR banksy irony. Leggings gentrify squid 8-bit cred pitchfork.</p>
         </div>

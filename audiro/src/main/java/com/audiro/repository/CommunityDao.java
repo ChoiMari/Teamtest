@@ -12,14 +12,20 @@ import com.audiro.dto.CommunityRankingDto;
 public interface CommunityDao {
 	
 	//-----------------페이징 처리해서 목록 가져오기 select 시작 ------------------------------
-    // 페이징 처리를 위한 총 게시물 수를 가져오는 메서드
-    int countPosts();
+    // 페이징 처리를 위한 전체(여행메이트+자유게시판) 총 게시물 수를 가져오는 메서드
+    int countAllPosts();
+    
+    //페이징 처리를 위한 전체 여행메이트 총 게시물 수를 가져오는 메서드
+    int countMatePosts();
 
     //전체(여행메이트+자유)post list 최신순으로 정렬해서 가져오기. 페이징된 데이터를 가져오는 메서드
     List<Post> selectPagingEntireOrderByIdDesc(@Param("offset") int offset, @Param("limit") int limit);
     
     ////전체(여행메이트+자유)post list 인기순(good 많은 순 desc)으로 정렬해서 가져오기.
     List<Post> selectPagingEntireOrderByGoodDesc(@Param("offset") int offset, @Param("limit") int limit);
+    
+    //여행 메이트 게시판 목록 최신순으로 가져오기
+    List<Post> selectPagingMateOrderByCreatedTimeDesc(@Param("offset") int offset, @Param("limit") int limit);
     
 	
   //-----------------페이징 처리해서 목록 가져오기 select 끝------------------------------

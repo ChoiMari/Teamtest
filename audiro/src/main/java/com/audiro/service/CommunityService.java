@@ -20,12 +20,12 @@ public class CommunityService {
 	private final CommunityDao communityDao;//->의존성 주입
 	
 	//------- 페이징 처리 목록 불러오기  시작 --------------------------------------
-	//페이징 처리를 위한 전체 페이지 수를 가져오는 서비스
+	//페이징 처리를 위한 전체(여행메이트+자유게시판) 페이지 수를 가져오는 서비스
     public int getTotalPages(int pageSize) {
     	log.debug("getTotalPages()");
     	log.debug("pageSize:{}",pageSize);
         //pagingDao를 사용하여 전체 게시물 수를 가져옵니다.
-        int totalPosts = communityDao.countPosts();
+        int totalPosts = communityDao.countAllPosts();
         log.debug("전체 게시물 수:{}",totalPosts);
         int resultpage = (int) Math.ceil((double) totalPosts / pageSize);
         log.debug("전체 페이지 수:{}",resultpage);
@@ -33,14 +33,37 @@ public class CommunityService {
         return (int) Math.ceil((double) totalPosts / pageSize);
     }
     
+	//페이징 처리를 위한 여행메이트 페이지 수를 가져오는 서비스
+    public int getMatePages(int pageSize) {
+    	log.debug("getMatePages()");
+    	log.debug("pageSize:{}",pageSize);
+        //pagingDao를 사용하여 전체 게시물 수를 가져옵니다.
+        int totalPosts = communityDao.countMatePosts();
+        log.debug("여행 메이트 게시물 수:{}",totalPosts);
+        int resultpage = (int) Math.ceil((double) totalPosts / pageSize);
+        log.debug("여행 메이트 전체 페이지 수:{}",resultpage);
+        // 전체 페이지 수를 계산하여 반환합니다.
+        return (int) Math.ceil((double) totalPosts / pageSize);
+    }
+    
     // 전체(여행메이트+자유게시판) 게시물 목록을(최신순으로) 가져오는 서비스입니다.
-    public List<Post> getSelectPagingNewOrderByIdDesc(int page, int pageSize) {
+    public List<Post> getSelectPagingAllNewOrderByIdDesc(int page, int pageSize) {
     	//-> pageSize한 페이지당 몇 개 가져올건지 내가 컨트롤러에서 지정한 개수
     	//page는 현재 페이지.
         // 페이지 시작점을 계산합니다.
         int offset = (page - 1) * pageSize;
         // PostMapper를 사용하여 게시물 목록을 가져옵니다.
         return communityDao.selectPagingEntireOrderByIdDesc(offset, pageSize);
+    }
+    
+    // 여행메이트 게시물 목록을(으로) 최신순으로 가져오는 서비스입니다.
+    public List<Post> getSelectPagingMateNewOrderByIdDesc(int page, int pageSize) {
+    	//-> pageSize한 페이지당 몇 개 가져올건지 내가 컨트롤러에서 지정한 개수
+    	//page는 현재 페이지.
+        // 페이지 시작점을 계산합니다.
+        int offset = (page - 1) * pageSize;
+        // PostMapper를 사용하여 게시물 목록을 가져옵니다.
+        return communityDao.selectPagingMateOrderByCreatedTimeDesc(offset, pageSize);
     }
 	
   //------- 페이징 처리 목록 불러오기  끝 --------------------------------------
