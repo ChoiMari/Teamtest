@@ -121,10 +121,10 @@
           <a class="nav-link" data-bs-toggle="tab" href="#mate" aria-selected="false" tabindex="-1" role="tab" aria-controls="mate">여행메이트</a>
         </li>
         <li class="nav-item" role="presentation">
-            <a class="nav-link" data-bs-toggle="tab" href="#free" aria-selected="false" tabindex="-1" role="tab">자유게시판</a>
+            <a class="nav-link" data-bs-toggle="tab" href="#free" aria-selected="false" tabindex="-1" role="tab" aria-controls="free">자유게시판</a>
           </li>
           <li class="nav-item" role="presentation">
-            <a class="nav-link disabled" href="#" aria-selected="false" tabindex="-1" role="tab">검색 결과</a>
+            <a class="nav-link disabled" href="#search" aria-selected="false" tabindex="-1" role="tab">검색 결과</a>
           </li>       
         <li class="nav-item dropdown me-5">
           <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">글쓰기</a>
@@ -154,8 +154,8 @@
         <!--검색 시작-->
         <div>
             <form class="d-flex me-2">
-                <input class="form-control me-sm-2 col-10" type="search" placeholder="커뮤니티 검색" required>
-                <button class="btn btn-danger my-2 my-sm-0" type="submit">Search</button>
+                <input id="inputSearch" class="form-control me-sm-2 col-10" type="search" placeholder="커뮤니티 검색" required>
+                <button  id="btnbutton" class="btn btn-danger my-2 my-sm-0" type="submit">Search</button>
           </form>
         </div>
         <!--검색 끝-->
@@ -164,7 +164,17 @@
       <!--탭콘텐츠시작-->
       <div id="myTabContent" class="tab-content">
       <!-- 전체 탭 내용 시작 -->
-                <div class="tab-pane fade show active" id="all" role="tabpanel">
+        <div class="tab-pane fade show active" id="all" role="tabpanel">
+            <!-- 라디오 버튼 시작 -->
+            <div class="mt-2">
+                <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
+                    <input type="radio" class="btn-check" name="btnradio1" id="btnradio1_1" autocomplete="off" checked>
+                    <label class="btn btn-outline-dark" for="btnradio1_1">최신순</label>
+                    <input type="radio" class="btn-check" name="btnradio1" id="btnradio1_2" autocomplete="off">
+                    <label class="btn btn-outline-dark" for="btnradio1_2">인기순</label>
+                </div>
+            </div>
+            <!-- 라디오 버튼 끝 -->
                     <!-- 전체 글 목록 테이블 시작 -->
                     <table class="table table-hover mt-2">
                         <thead class="table-dark">
@@ -190,8 +200,18 @@
                     <!-- 전체 글 목록 테이블 끝 -->
                 </div><!-- 전체 탭 내용 끝 -->
                 
-                <!-- 여행 메이트 탭 내용 시작 -->
-                <div class="tab-pane fade" id="mate" role="tabpanel" aria-labelledby="mate-tab">
+        <!-- 여행 메이트 탭 내용 시작 -->
+        <div class="tab-pane fade" id="mate" role="tabpanel" aria-labelledby="mate-tab">
+            <!-- 라디오 버튼 시작 -->
+            <div class="mt-2">
+                <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
+                    <input type="radio" class="btn-check" name="btnradio2" id="btnradio2_1" autocomplete="off" checked>
+                    <label class="btn btn-outline-dark" for="btnradio2_1">최신순</label>
+                    <input type="radio" class="btn-check" name="btnradio2" id="btnradio2_2" autocomplete="off" >
+                    <label class="btn btn-outline-dark" for="btnradio2_2">인기순</label>
+                </div>
+            </div>
+            <!-- 라디오 버튼 끝 -->
                     <!-- 여행메이트 글 목록 테이블 시작 -->
                     <table class="table table-hover mt-2">
                         <thead class="table-dark">
@@ -218,7 +238,17 @@
         </div>
         <!-- 여행 메이트 탭 내용 끝-->
         <!-- 자유 게시판 탭 내용 시작 -->
-                <div class="tab-pane fade" id="free" role="tabpanel">
+                <div class="tab-pane fade" id="free" role="tabpanel" aria-labelledby="free-tab">
+            <!-- 라디오 버튼 시작 -->
+            <div class="mt-2">
+                <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
+                    <input type="radio" class="btn-check" name="btnradio3" id="btnradio3_1" autocomplete="off" checked>
+                    <label class="btn btn-outline-dark" for="btnradio3_1">최신순</label>
+                    <input type="radio" class="btn-check" name="btnradio3" id="btnradio3_2" autocomplete="off" >
+                    <label class="btn btn-outline-dark" for="btnradio3_2">인기순</label>
+                </div>
+            </div>
+            <!-- 라디오 버튼 끝 -->                
                     <!-- 전체 글 목록 테이블 시작 -->
                     <table class="table table-hover mt-2">
                         <thead class="table-dark">
@@ -230,14 +260,14 @@
                                 <th class="text-center">Created Time</th>
                             </tr>
                         </thead>
-                        <tbody id="postTableBody">
+                        <tbody id="postTableBody3">
                             <!-- AJAX로 데이터를 가져와 이곳에 삽입할 것입니다. -->
                         </tbody>
                     </table>
 
                     <nav aria-label="Page navigation">
                         <ul class="pagination justify-content-center"
-                            id="pagination">
+                            id="pagination3">
                             <!-- AJAX로 페이지 링크를 가져와 이곳에 삽입할 것입니다. -->
                         </ul>
                     </nav>

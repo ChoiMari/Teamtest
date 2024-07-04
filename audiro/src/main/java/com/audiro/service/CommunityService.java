@@ -46,6 +46,19 @@ public class CommunityService {
         return (int) Math.ceil((double) totalPosts / pageSize);
     }
     
+	//페이징 처리를 위한 자유 게시판 페이지 수를 가져오는 서비스
+    public int getFreePages(int pageSize) {
+    	log.debug("getFreePages()");
+    	log.debug("pageSize:{}",pageSize);
+        //pagingDao를 사용하여 전체 게시물 수를 가져옵니다.
+        int totalPosts = communityDao.countFreePosts();
+        log.debug("자유 게시판 게시물 수:{}", totalPosts);
+        int resultpage = (int) Math.ceil((double) totalPosts / pageSize);
+        log.debug("자유 게시판 전체 페이지 수:{}", resultpage);
+        // 전체 페이지 수를 계산하여 반환합니다.
+        return (int) Math.ceil((double) totalPosts / pageSize);
+    }
+    
     // 전체(여행메이트+자유게시판) 게시물 목록을(최신순으로) 가져오는 서비스입니다.
     public List<Post> getSelectPagingAllNewOrderByIdDesc(int page, int pageSize) {
     	//-> pageSize한 페이지당 몇 개 가져올건지 내가 컨트롤러에서 지정한 개수
@@ -57,13 +70,53 @@ public class CommunityService {
     }
     
     // 여행메이트 게시물 목록을(으로) 최신순으로 가져오는 서비스입니다.
-    public List<Post> getSelectPagingMateNewOrderByIdDesc(int page, int pageSize) {
+    public List<Post> getSelectPagingMateOrderByIdDesc(int page, int pageSize) {
     	//-> pageSize한 페이지당 몇 개 가져올건지 내가 컨트롤러에서 지정한 개수
     	//page는 현재 페이지.
         // 페이지 시작점을 계산합니다.
         int offset = (page - 1) * pageSize;
         // PostMapper를 사용하여 게시물 목록을 가져옵니다.
         return communityDao.selectPagingMateOrderByCreatedTimeDesc(offset, pageSize);
+    }
+    
+    // 자유 게시판 게시물 목록을(으로) 최신순으로 가져오는 서비스입니다.
+    public List<Post> getSelectPagingFreeOrderByIdDesc(int page, int pageSize) {
+    	//-> pageSize한 페이지당 몇 개 가져올건지 내가 컨트롤러에서 지정한 개수
+    	//page는 현재 페이지.
+        // 페이지 시작점을 계산합니다.
+        int offset = (page - 1) * pageSize;
+        // PostMapper를 사용하여 게시물 목록을 가져옵니다.
+        return communityDao.selectPagingFreeOrderByCreatedTimeDesc(offset, pageSize);
+    }
+    
+    // 전체(여행메이트+자유게시판) 게시물 목록을(인기순으로) 가져오는 서비스입니다.
+    public List<Post> getSelectPagingAllOrderByGoodDesc(int page, int pageSize) {
+    	//-> pageSize한 페이지당 몇 개 가져올건지 내가 컨트롤러에서 지정한 개수
+    	//page는 현재 페이지.
+        // 페이지 시작점을 계산합니다.
+        int offset = (page - 1) * pageSize;
+        // PostMapper를 사용하여 게시물 목록을 가져옵니다.
+        return communityDao.selectPagingEntireOrderByGoodDesc(offset, pageSize);
+    }
+    
+    // 여행메이트 게시물 목록을(으로) 인기순으로 가져오는 서비스입니다.
+    public List<Post> getSelectPagingMateOrderByGoodDesc(int page, int pageSize) {
+    	//-> pageSize한 페이지당 몇 개 가져올건지 내가 컨트롤러에서 지정한 개수
+    	//page는 현재 페이지.
+        // 페이지 시작점을 계산합니다.
+        int offset = (page - 1) * pageSize;
+        // PostMapper를 사용하여 게시물 목록을 가져옵니다.
+        return communityDao.selectPagingMateOrderByGoodDesc(offset, pageSize);
+    }
+    
+    // 자유 게시판 게시물 목록을(으로) 인기순으로 가져오는 서비스입니다.
+    public List<Post> getSelectPagingFreeOrderByGoodDesc(int page, int pageSize) {
+    	//-> pageSize한 페이지당 몇 개 가져올건지 내가 컨트롤러에서 지정한 개수
+    	//page는 현재 페이지.
+        // 페이지 시작점을 계산합니다.
+        int offset = (page - 1) * pageSize;
+        // PostMapper를 사용하여 게시물 목록을 가져옵니다.
+        return communityDao.selectPagingFreeOrderByGoodDesc(offset, pageSize);
     }
 	
   //------- 페이징 처리 목록 불러오기  끝 --------------------------------------

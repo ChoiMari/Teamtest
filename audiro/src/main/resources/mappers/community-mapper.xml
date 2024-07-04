@@ -91,6 +91,94 @@
         WHERE p.users_id = u.users_id
         AND p.post_type_id = 20
     </select>
+    
+        <!-- 페이징 처리 위해서 자유 게시판 총 게시물 수를 가져오는 쿼리 -->
+    <select id="countFreePosts" resultType="int">
+        SELECT COUNT(*)
+        FROM post p, users u
+        WHERE p.users_id = u.users_id
+        AND p.post_type_id = 30
+    </select>
+
+    <!--페이징 처리 위해서 검색어와 카테고리에 따라 전체 레코드 수를 계산하는 쿼리 -->
+    <select id="countSearchKeyword" resultType="int">
+        <bind name="searchKeyword"
+            value="keyword.replaceAll('\\s+', '')" />
+        SELECT COUNT(*)
+        FROM post p
+        JOIN users u ON p.users_id = u.users_id
+        <where>
+            <choose>
+                <when
+                    test='category1.equals("mf") and category2.equals("t")'>
+                    replace(upper(p.title), ' ', '') LIKE '%' || upper(#{searchKeyword}) || '%'
+                    AND p.post_type_id != 10
+                </when>
+                <when
+                    test='category1.equals("mf") and category2.equals("c")'>
+                    replace(upper(p.content), ' ', '') LIKE '%' || upper(#{searchKeyword}) || '%'
+                    AND p.post_type_id != 10
+                </when>
+                <when
+                    test='category1.equals("mf") and category2.equals("tc")'>
+                    (replace(upper(p.title), ' ', '') LIKE '%' || upper(#{searchKeyword}) || '%'
+                    OR replace(upper(p.content), ' ', '') LIKE '%' ||
+                    upper(#{searchKeyword}) || '%')
+                    AND p.post_type_id != 10
+                </when>
+                <when
+                    test='category1.equals("mf") and category2.equals("a")'>
+                    replace(upper(u.nickname), ' ', '') LIKE '%' || upper(#{searchKeyword}) || '%'
+                    AND p.post_type_id != 10
+                </when>
+                <when
+                    test='category1.equals("m") and category2.equals("t")'>
+                    replace(upper(p.title), ' ', '') LIKE '%' || upper(#{searchKeyword}) || '%'
+                    AND p.post_type_id = 20
+                </when>
+                <when
+                    test='category1.equals("m") and category2.equals("c")'>
+                    replace(upper(p.content), ' ', '') LIKE '%' || upper(#{searchKeyword}) || '%'
+                    AND p.post_type_id = 20
+                </when>
+                <when
+                    test='category1.equals("m") and category2.equals("tc")'>
+                    (replace(upper(p.title), ' ', '') LIKE '%' || upper(#{searchKeyword}) || '%'
+                    OR replace(upper(p.content), ' ', '') LIKE '%' ||
+                    upper(#{searchKeyword}) || '%')
+                    AND p.post_type_id = 20
+                </when>
+                <when
+                    test='category1.equals("m") and category2.equals("a")'>
+                    replace(upper(u.nickname), ' ', '') LIKE '%' || upper(#{searchKeyword}) || '%'
+                    AND p.post_type_id = 20
+                </when>
+                <when
+                    test='category1.equals("f") and category2.equals("t")'>
+                    replace(upper(p.title), ' ', '') LIKE '%' || upper(#{searchKeyword}) || '%'
+                    AND p.post_type_id = 30
+                </when>
+                <when
+                    test='category1.equals("f") and category2.equals("c")'>
+                    replace(upper(p.content), ' ', '') LIKE '%' || upper(#{searchKeyword}) || '%'
+                    AND p.post_type_id = 30
+                </when>
+                <when
+                    test='category1.equals("f") and category2.equals("tc")'>
+                    (replace(upper(p.title), ' ', '') LIKE '%' || upper(#{searchKeyword}) || '%'
+                    OR replace(upper(p.content), ' ', '') LIKE '%' ||
+                    upper(#{searchKeyword}) || '%')
+                    AND p.post_type_id = 30
+                </when>
+                <when
+                    test='category1.equals("f") and category2.equals("a")'>
+                    replace(upper(u.nickname), ' ', '') LIKE '%' || upper(#{searchKeyword}) || '%'
+                    AND p.post_type_id = 30
+                </when>
+            </choose>
+        </where>
+    </select>
+
 
     <!-- 페이징 처리. 통합(전체) 게시판 목록 select 최신순으로 가져옴. 페이징 처리 10개씩 -->
     <select id="selectPagingEntireOrderByIdDesc" resultType="com.audiro.repository.Post">
@@ -107,7 +195,7 @@
         from post p, users u 
         where p.users_id = u.users_id
         and (p.post_type_id = 20 or p.post_type_id = 30)
-        order by p.good desc
+        order by p.good DESC, p.post_id DESC
         OFFSET #{offset} ROWS FETCH NEXT #{limit} ROWS ONLY
     </select>
     
@@ -127,7 +215,7 @@
         from post p, users u 
         where p.users_id = u.users_id
         and p.post_type_id = 20
-        order by p.good desc
+        order by p.good DESC, p.post_id DESC
         OFFSET #{offset} ROWS FETCH NEXT #{limit} ROWS ONLY
     </select>
     
@@ -147,7 +235,7 @@
         from post p, users u 
         where p.users_id = u.users_id
         and p.post_type_id = 30
-        order by p.good desc
+        order by p.good DESC, p.post_id DESC 
         OFFSET #{offset} ROWS FETCH NEXT #{limit} ROWS ONLY
     </select>
     
