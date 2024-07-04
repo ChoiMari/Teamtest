@@ -613,5 +613,58 @@
             WHERE t.rank &lt;= 3
             FETCH FIRST 3 ROWS ONLY
     </select>
+    
+    <!-- 여행 메이트+자유 게시판 good 많은 TOP 3 순위 매기는 sql 
+    <select id="selectAllPostsGoodTop3" resultType="com.audiro.dto.CommunityRankingDto">
+        SELECT post_id, nickname, title, good, rank
+        FROM (
+            SELECT p.post_id, u.nickname, p.title, p.good,
+               RANK() OVER (ORDER BY p.good DESC) AS rank
+            FROM post p
+            JOIN users u ON p.users_id = u.users_id
+            WHERE p.post_type_id = 20 OR p.post_type_id = 30
+        )
+        WHERE rank &lt;= 3 AND ROWNUM &lt;= 3
+        order by good DESC, post_id DESC
+    </select>
+    -->
+    
+        <!-- 여행 메이트+자유 게시판 good 많은 TOP 3 순위 매기는 sql -->
+    <select id="selectAllPostsGoodTop3"
+        resultType="com.audiro.dto.CommunityRankingDto">
+        SELECT post_id, nickname,
+        CASE
+        WHEN LENGTH(title) > 10 THEN SUBSTR(title, 1, 10) || '...'
+        ELSE title
+        END AS title,
+        good, rank
+        FROM (
+        SELECT p.post_id, u.nickname, p.title, p.good,
+        RANK() OVER (ORDER BY p.good DESC) AS rank
+        FROM post p
+        JOIN users u ON
+        p.users_id = u.users_id
+        WHERE p.post_type_id = 20 OR
+        p.post_type_id = 30
+        )
+        WHERE rank &lt;= 3 AND ROWNUM &lt;= 3
+        ORDER BY good DESC, post_id DESC
+    </select>
+
+    <!-- 전체 댓글 많이 단 유저 top3 -->
+    <select id="selectCommentsUserTop3" resultType="com.audiro.dto.CommunityRankingDto">
+    SELECT users_id, nickname, count, rank
+    FROM (
+        SELECT c.users_id, u.nickname, 
+               COUNT(c.comments_id) AS count,
+               RANK() OVER (ORDER BY COUNT(c.comments_id) DESC) AS rank
+        FROM comments c
+        JOIN users u ON c.users_id = u.users_id
+        GROUP BY c.users_id, u.nickname
+    )
+    WHERE rank &lt;= 3 AND ROWNUM &lt;= 3
+    </select>
+    
+    
      
 </mapper>

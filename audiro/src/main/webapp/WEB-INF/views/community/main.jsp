@@ -10,6 +10,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>어디로</title>
     <link href="../css/community.css" rel="stylesheet" />
+    <!-- CSS 스타일 추가 마크태그에 쓰려고 했으나 그냥 빼버림-->
+    <style>
+        .highlight {
+            background-color: #F6E3FF;
+        }
+    </style>
 </head>
 <body>
     <div class="container">
@@ -57,24 +63,38 @@
       </h2>
       <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#accordionExample" style="">
         <div class="accordion-body">
-            <table class="table table-hover" style="margin: 0 auto;">
-                <thead class="table table-light">
-                    <tr>
-                        <th>순위</th>
-                        <th>닉네임</th>
-                        <th>💘</th>
-                    </tr>
-                </thead>
-                <c:forEach var="like" items="${userLikeTop3List}">
-                    <tbody>
-                        <tr>
-                            <td>${like.rank}</td>
-                            <td>${like.nickname}</td>
-                            <td>${like.count}</td>
+          <!-- 순위 테이블 시작 -->
+          <table class="table table-hover" style="margin: 0 auto;">
+              <thead class="table table-light">
+              <tr>
+                   <th class="text-center">순위</th>
+                   <th class="text-center">닉네임</th>
+                   <th class="text-center">💘</th>
+             </tr>
+            </thead>
+            <!-- rank == 1 이면 형광펜으로 칠함. -->
+            <c:forEach var="like" items="${userLikeTop3List}">
+                <tbody>
+                    <c:choose>
+                    <c:when test="${like.rank == 1}">
+                        <tr class="table-warning">
+                            <td class="text-center">🤴🏻</td>
+                            <td class="text-center">${like.nickname}</td>
+                            <td class="text-center">${like.count}</td>                        
                         </tr>
-                    </tbody>
-                </c:forEach>
-             </table>
+                    </c:when>
+                    <c:otherwise>
+                    <tr>
+                        <td class="text-center">${like.rank}</td>
+                        <td class="text-center">${like.nickname}</td>
+                        <td class="text-center">${like.count}</td>
+                    <tr>
+                    </c:otherwise>
+                    </c:choose>
+                </tbody>
+            </c:forEach>
+        </table>
+             <!-- 순위 테이블 끝 -->
         </div>
       </div>
     </div>
@@ -86,7 +106,38 @@
       </h2>
       <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
         <div class="accordion-body">
-          <strong>This is the second item's accordion body.</strong> It is hidden by default, until the collapse plugin adds the appropriate classes that we use to style each element. These classes control the overall appearance, as well as the showing and hiding via CSS transitions. You can modify any of this with custom CSS or overriding our default variables. It's also worth noting that just about any HTML can go within the <code>.accordion-body</code>, though the transition does limit overflow.
+          <!-- 순위 테이블 시작 -->
+          <table class="table table-hover" style="margin: 0 auto;">
+              <thead class="table table-light">
+              <tr>
+                   <th class="text-center">순위</th>
+                   <th class="text-center">title</th>
+                   <th class="text-center">👍🏻</th>
+             </tr>
+            </thead>
+            <!-- rank == 1 이면 해당 테이블행만 칠함. -->
+            <c:forEach var="pg" items="${postGoodTop3List}">
+                <tbody>
+                    <c:choose>
+                    <c:when test="${pg.rank == 1}">
+                        <tr class="table-warning">
+                            <td class="text-center">🤴🏻</td>
+                            <td class="text-center">${pg.title}</td>
+                            <td class="text-center">${pg.good}</td>                        
+                        </tr>
+                    </c:when>
+                    <c:otherwise>
+                    <tr>
+                        <td class="text-center">${pg.rank}</td>
+                        <td class="text-center">${pg.title}</td>
+                        <td class="text-center">${pg.good}</td>
+                    <tr>
+                    </c:otherwise>
+                    </c:choose>
+                </tbody>
+            </c:forEach>
+        </table>
+             <!-- 순위 테이블 끝 -->
         </div>
       </div>
     </div>
@@ -98,7 +149,38 @@
       </h2>
       <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#accordionExample">
         <div class="accordion-body">
-          <strong>This is the third item's accordion body.</strong> It is hidden by default, until the collapse plugin adds the appropriate classes that we use to style each element. These classes control the overall appearance, as well as the showing and hiding via CSS transitions. You can modify any of this with custom CSS or overriding our default variables. It's also worth noting that just about any HTML can go within the <code>.accordion-body</code>, though the transition does limit overflow.
+          <!-- 순위 테이블 시작 -->
+          <table class="table table-hover" style="margin: 0 auto;">
+              <thead class="table table-light">
+              <tr>
+                   <th class="text-center">순위</th>
+                   <th class="text-center">닉네임</th>
+                   <th class="text-center">&#128221;</th>
+             </tr>
+            </thead>
+            <!-- rank == 1 이면 그 테이블 행만 칠함. -->
+            <c:forEach var="cu" items="${commentsUserTop3}">
+                <tbody>
+                    <c:choose>
+                    <c:when test="${cu.rank == 1}">
+                        <tr class="table-warning">
+                            <td class="text-center">🤴🏻</td>
+                            <td class="text-center">${cu.nickname}</td>
+                            <td class="text-center">${cu.count}</td>                        
+                        </tr>
+                    </c:when>
+                    <c:otherwise>
+                    <tr>
+                        <td class="text-center">${cu.rank}</td>
+                        <td class="text-center">${cu.nickname}</td>
+                        <td class="text-center">${cu.count}</td>
+                    <tr>
+                    </c:otherwise>
+                    </c:choose>
+                </tbody>
+            </c:forEach>
+        </table>
+             <!-- 순위 테이블 끝 -->
         </div>
       </div>
     </div>

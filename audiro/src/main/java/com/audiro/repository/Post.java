@@ -2,6 +2,8 @@ package com.audiro.repository;
 
 import java.time.LocalDateTime;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -19,6 +21,9 @@ public class Post {
 	private Integer postTypeId;				//Foregin key: post_type 테이블의 post_type_id(pk) 컬럼을 참조.
 	private String title;					//게시글 제목.
 	private String content;					//게시글 내용.
+	
+	//json 날짜 형식 변환 처리.(서버 -> 클라이언트)
+	@JsonFormat(pattern = "yy년 MM월 dd일 hh:mm:ss")
 	private LocalDateTime createdTime;		//댓글 최초 작성 시간.
 	private LocalDateTime modifiedTime;		//댓글 최종 수정 시간.
 	private Integer good;					//게시글 좋아요 갯수.

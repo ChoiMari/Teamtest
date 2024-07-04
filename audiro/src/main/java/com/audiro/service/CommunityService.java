@@ -120,8 +120,31 @@ public class CommunityService {
     }
 	
   //------- 페이징 처리 목록 불러오기  끝 --------------------------------------
+
+    // 랭킹
+    // 관심유저 3명 순위
+	public List<CommunityRankingDto> readRankingLikeUserTop3() {
+	log.debug("readRankingLikeUserTop3()");
+	List<CommunityRankingDto> listLikeUserTop3 = communityDao.selectLikeUserTop3();
+	log.debug(listLikeUserTop3.toString());
+	return listLikeUserTop3;	
+	}
 	
-	
+    // 전체(여행메이트+자유) 글 good 많은 post 3순위
+	public List<CommunityRankingDto> readRankingAllPostsGoodTop3() {
+	log.debug("readRankingAllPostsGoodTop3()");
+	List<CommunityRankingDto> listPostsGoodTop3 = communityDao.selectAllPostsGoodTop3();
+	log.debug(listPostsGoodTop3.toString());
+	return listPostsGoodTop3;	
+	}
+
+    // 전체(여행메이트+자유) 댓글 많이 단 user 3순위
+	public List<CommunityRankingDto> readRankingCommentsUserTop3() {
+	log.debug("readRankingAllPostsGoodTop3()");
+	List<CommunityRankingDto> listCommentsUserTop3 = communityDao.selectCommentsUserTop3();
+	log.debug(listCommentsUserTop3.toString());
+	return listCommentsUserTop3;	
+	}
 	
 //	//-----게시판 : 전체/여행메이트/자유 게시판 목록 불러오기 시작 ------
 //	//전체 게시판 목록 dao에서 최신순으로 가져옴

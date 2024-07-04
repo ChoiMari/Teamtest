@@ -10,5 +10,9 @@ public class CommunityRankingDto {
     private Integer rank;  // 사용자 순위
     
     private String nickname;
+    private Integer postId;
+    private String title;
+    private Integer users_id;
+    private Integer good;
 
 }
