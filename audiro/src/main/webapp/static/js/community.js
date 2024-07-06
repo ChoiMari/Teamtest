@@ -20,10 +20,13 @@ function loadPosts1(page) {
 
             postTableBody.innerHTML = '';
             posts.forEach(post => {
+                const postDetailsPage = `../community/details?postId=${post.postId}`;
                 const row = `
                     <tr class="table-light">
                         <td class="text-center">${post.postId}</td>
-                        <td class="text-center">${post.title}</td>
+                        <td class="text-center"> 
+                            <a href="${postDetailsPage}">${post.title}<a>
+                        </td>
                         <td class="text-center">${post.nickname}</td>
                         <td class="text-center">${post.good}</td>
                         <td class="text-center">${post.createdTime}</td>
@@ -85,10 +88,13 @@ function loadPosts2(page) {
 
             postTableBody2.innerHTML = '';
             posts2.forEach(post2 => {
+                const postDetailsPage2 = `../community/details?postId=${post2.postId}`;
                 const row = `
                     <tr class="table-light">
                         <td class="text-center">${post2.postId}</td>
-                        <td class="text-center">${post2.title}</td>
+                        <td class="text-center"> 
+                            <a href="${postDetailsPage2}">${post2.title}<a>
+                        </td>
                         <td class="text-center">${post2.nickname}</td>
                         <td class="text-center">${post2.good}</td>
                         <td class="text-center">${post2.createdTime}</td>
@@ -151,10 +157,13 @@ function loadPosts3(page) {
 
             postTableBody3.innerHTML = '';
             posts3.forEach(post3 => {
+                const postDetailsPage3 = `../community/details?postId=${post3.postId}`;
                 const row = `
                     <tr class="table-light">
                         <td class="text-center">${post3.postId}</td>
-                        <td class="text-center">${post3.title}</td>
+                        <td class="text-center"> 
+                            <a href="${postDetailsPage3}">${post3.title}<a>
+                        </td>
                         <td class="text-center">${post3.nickname}</td>
                         <td class="text-center">${post3.good}</td>
                         <td class="text-center">${post3.createdTime}</td>
@@ -216,10 +225,13 @@ function loadPosts4(page) {
 
             postTableBody4.innerHTML = '';
             posts4.forEach(post4 => {
+                const postDetailsPage4 = `../community/details?postId=${post4.postId}`;                
                 const row = `
                     <tr class="table-light">
                         <td class="text-center">${post4.postId}</td>
-                        <td class="text-center">${post4.title}</td>
+                        <td class="text-center"> 
+                            <a href="${postDetailsPage4}">${post4.title}<a>
+                        </td>
                         <td class="text-center">${post4.nickname}</td>
                         <td class="text-center">${post4.good}</td>
                         <td class="text-center">${post4.createdTime}</td>
@@ -282,10 +294,13 @@ function loadPosts5(page) {
 
             postTableBody5.innerHTML = '';
             posts5.forEach(post5 => {
+                const postDetailsPage5 = `../community/details?postId=${post5.postId}`;                 
                 const row = `
                     <tr class="table-light">
                         <td class="text-center">${post5.postId}</td>
-                        <td class="text-center">${post5.title}</td>
+                        <td class="text-center"> 
+                            <a href="${postDetailsPage5}">${post5.title}<a>
+                        </td>
                         <td class="text-center">${post5.nickname}</td>
                         <td class="text-center">${post5.good}</td>
                         <td class="text-center">${post5.createdTime}</td>
@@ -348,10 +363,13 @@ function loadPosts6(page) {
 
             postTableBody6.innerHTML = '';
             posts6.forEach(post6 => {
+                const postDetailsPage6 = `../community/details?postId=${post6.postId}`;
                 const row = `
                     <tr class="table-light">
                         <td class="text-center">${post6.postId}</td>
-                        <td class="text-center">${post6.title}</td>
+                        <td class="text-center"> 
+                            <a href="${postDetailsPage6}">${post6.title}<a>
+                        </td>
                         <td class="text-center">${post6.nickname}</td>
                         <td class="text-center">${post6.good}</td>
                         <td class="text-center">${post6.createdTime}</td>

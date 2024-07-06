@@ -7,6 +7,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.audiro.dto.CommunityPostListDto;
 import com.audiro.dto.CommunityPostSearchDto;
@@ -46,6 +47,53 @@ public class CommunityController {
 		log.debug("commentsUserTop3:{}",commentsUserTop3);
 		model.addAttribute("commentsUserTop3", commentsUserTop3);		
 		
+	}
+	
+	@GetMapping("/details")
+	public void details(@RequestParam(name = "postId") int postId, Model model) {
+		log.debug("details(postId:{})",postId);
+		
+		CommunityPostListDto post = communityService.readByPostIdDetails(postId);
+		log.debug(post.toString());
+		model.addAttribute("p", post);
+		
+		//랭킹
+		//관심유저(찜많은) 순위 3명 select
+		List<CommunityRankingDto> userLikeTop3List = communityService.readRankingLikeUserTop3();
+		log.debug("userLikeTop3List:{}",userLikeTop3List);
+		model.addAttribute("userLikeTop3List", userLikeTop3List); //main.jsp로 보냄 ${}써서 사용가능
+		
+		//good많은 post 순위 3(여행후기 제외) select
+		List<CommunityRankingDto> postGoodTop3List = communityService.readRankingAllPostsGoodTop3();
+		log.debug("postGoodTop3List:{}", postGoodTop3List);
+		model.addAttribute("postGoodTop3List", postGoodTop3List);
+		
+		//댓글 많이 단 user 순위 3(여행후기 제외) select
+		List<CommunityRankingDto> commentsUserTop3 = communityService.readRankingCommentsUserTop3();
+		log.debug("commentsUserTop3:{}",commentsUserTop3);
+		model.addAttribute("commentsUserTop3", commentsUserTop3);
+	}
+	
+	
+	@GetMapping("/create")
+	public void create(Model model) {
+		log.debug("create()");
+		
+		//랭킹
+		//관심유저(찜많은) 순위 3명 select
+		List<CommunityRankingDto> userLikeTop3List = communityService.readRankingLikeUserTop3();
+		log.debug("userLikeTop3List:{}",userLikeTop3List);
+		model.addAttribute("userLikeTop3List", userLikeTop3List); //main.jsp로 보냄 ${}써서 사용가능
+		
+		//good많은 post 순위 3(여행후기 제외) select
+		List<CommunityRankingDto> postGoodTop3List = communityService.readRankingAllPostsGoodTop3();
+		log.debug("postGoodTop3List:{}", postGoodTop3List);
+		model.addAttribute("postGoodTop3List", postGoodTop3List);
+		
+		//댓글 많이 단 user 순위 3(여행후기 제외) select
+		List<CommunityRankingDto> commentsUserTop3 = communityService.readRankingCommentsUserTop3();
+		log.debug("commentsUserTop3:{}",commentsUserTop3);
+		model.addAttribute("commentsUserTop3", commentsUserTop3);
 	}
 	
 //	//TODO : main test ------------------------------------------------시작

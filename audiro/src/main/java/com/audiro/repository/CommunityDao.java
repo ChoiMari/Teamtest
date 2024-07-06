@@ -57,8 +57,11 @@ public interface CommunityDao {
     
     //전체 댓글 많이 단 유저 top3
     List<CommunityRankingDto> selectCommentsUserTop3();
-	
+	//랭깅 끝
 
+    
+    //글 상세보기 페이지
+    Post selectDetailsFreeAndMate(int postId);
     
 //	//인기(찜 많은 순위로) 여행후기 10개 가져옴. postId랑 찜개수 2개 select
 //	//여기서 뽑은 post_id로 title은 따로 뽑아가져오기. 근데 해당 포스트 삭제되었을경우 해당게시물삭제로 화면 보이게 예외처리하기
